@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { Persistence } from "../../../utilities/persistence.utility";
 import { APP, URLS } from "../../../constants";
 
-const page = () => {
+const Page = () => {
   const [user, setUser] = useState<string>("");
   const [showError, setShowError] = useState<boolean>(false);
   const router = useRouter();
@@ -94,4 +94,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
