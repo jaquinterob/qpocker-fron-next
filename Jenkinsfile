@@ -3,8 +3,8 @@ pipeline {
   
   environment {
     PORT = '3100' 
-    IMAGE_NAME = 'qmethod_image-front' 
-    APP_NAME = 'QMETHOD_APP_FRONT' 
+    IMAGE_NAME = 'qpocker_image-front' 
+    APP_NAME = 'QPOCKER_APP_FRONT' 
   }
   
   stages {
