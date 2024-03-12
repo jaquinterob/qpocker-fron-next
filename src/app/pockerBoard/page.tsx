@@ -7,7 +7,7 @@ import { Vote } from "../../../interfaces/vote";
 import VoteCard from "../../components/VoteCard";
 import { URLS } from "../../../constants";
 
-export default function Home() {
+export default function PockerBoard() {
   const searchParams = useSearchParams();
   const userParam = searchParams.get("user") || "";
   const hashParam = searchParams.get("hash") || "";
@@ -79,7 +79,7 @@ export default function Home() {
       <br />
       <div className="flex flex-col gap-2">
         {votes.map((vote) => (
-          <VoteCard key={vote.hash} vote={vote} />
+          <VoteCard vote={vote} />
         ))}
       </div>
     </>
