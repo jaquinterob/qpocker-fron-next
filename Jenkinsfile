@@ -2,7 +2,7 @@ pipeline {
   agent any
   
   environment {
-    PORT = '3100' 
+    PORT = '3101' 
     IMAGE_NAME = 'qpocker_image-front' 
     APP_NAME = 'QPOCKER_APP_FRONT' 
   }
