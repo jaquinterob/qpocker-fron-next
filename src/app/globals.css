@@ -41,3 +41,8 @@ body {
   justify-content: space-between;
   color: #21dbc0;
 }
+
+.vote-select-container {
+  padding: 30px;
+  background-color: #21dbc0;
+}

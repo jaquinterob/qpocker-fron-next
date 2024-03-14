@@ -5,14 +5,17 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { Vote } from "../../../interfaces/vote";
 import VoteCard from "../../components/VoteCard";
-import { URLS } from "../../../constants";
+import { APP, URLS } from "../../../constants";
+import VoteSelect from "@/components/VoteSelect";
 
 export default function PockerBoard() {
+  const initialSelectVotes = [1, 2, 3, 5, 8, 13, 21];
   const searchParams = useSearchParams();
   const userParam = searchParams.get("user") || "";
   const hashParam = searchParams.get("hash") || "";
   const [votes, setVotes] = useState<Vote[]>([]);
   const [vote, setVote] = useState<number | string>("");
+  const [selectVotes, setSelectVotes] = useState<number[]>(initialSelectVotes);
   const socket = io(URLS.SOCKET);
   const router = useRouter();
 
@@ -54,32 +57,34 @@ export default function PockerBoard() {
       vote,
       hash: hashParam,
     };
-    console.log(newVote);
     socket.emit("vote", newVote);
+  };
+
+  const endSession = () => {
+    localStorage.removeItem(APP.USER);
+    socket.emit("removeUser", userParam);
+    router.push("/");
   };
 
   const resetVotes = () => {
     socket.emit("resetVotes");
   };
+
   return (
     <>
-      <button onClick={sendAMessage}>Send hi</button>
+      <button onClick={resetVotes}>Borrar</button>
       <br />
+      <button onClick={endSession}>Cerrar sesión</button>
       <br />
-      <button onClick={resetVotes}>resetVotes</button>
-      <br />
-      <br />
-      <div className="p-3">
-        <input
-          type="number"
-          value={vote as number}
-          onChange={(e) => setVote(Number(e.target.value))}
-        />
-      </div>
       <br />
       <div className="flex flex-col gap-2">
         {votes.map((vote) => (
           <VoteCard vote={vote} />
+        ))}
+      </div>
+      <div className="flex  gap-2 justify-center mt-3 flex-wrap">
+        {selectVotes.map((value) => (
+          <VoteSelect value={value,setVote} />
         ))}
       </div>
     </>
