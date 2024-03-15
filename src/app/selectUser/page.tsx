@@ -6,7 +6,7 @@ import { APP, URLS } from "../../../constants";
 import DoneOutlineIcon from "@material-ui/icons/DoneOutline";
 
 const Page = () => {
-  const URL = "http://localhost:3001/pockerBoard?room=";
+  const URL = URLS.SERVER + "pockerBoard?room=";
   const [user, setUser] = useState<string>("");
   const searchParams = useSearchParams();
   const [showError, setShowError] = useState<boolean>(false);
@@ -25,7 +25,7 @@ const Page = () => {
         if (existsUser) {
           setShowError(true);
         } else {
-          localStorage.setItem(APP.USER, user);
+          window.localStorage.setItem(APP.USER, user);
           router.push(`${URL}${roomParam}`);
         }
       }

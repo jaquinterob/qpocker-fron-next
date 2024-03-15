@@ -18,12 +18,11 @@ export default function PockerBoard() {
     query: { room: roomParam },
   });
   const router = useRouter();
-  const user = localStorage.getItem(APP.USER) || "";
-  const URL =
-    URLS.SERVER +
-    useEffect(() => {
-      sendNewVote();
-    }, [value]);
+  const user = window.localStorage.getItem(APP.USER) || "";
+
+  useEffect(() => {
+    sendNewVote();
+  }, [value]);
 
   useEffect(() => {
     if (user === "") {
