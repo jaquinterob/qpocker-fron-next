@@ -42,11 +42,11 @@ export default function Home() {
           </div>
         </div>
         {room !== "" && (
-          <div className="flex flex-col items-center mt-6 fade-in ">
+          <div className="flex flex-col items-center mt-6 fade-in">
             <h1 className="text-black italic font-semibold ">
               Comparte este link:
             </h1>
-            <div className="room flex gap-2 mt-3">
+            <div className="room flex gap-2 mt-3 flex-col md:flex-row sm:py-6 md:py-4 bg-slate-500">
               <div className="border-2 border-black rounded-md px-4 py-2 text-lg font-bold">
                 {`${URL}${room}`}
               </div>

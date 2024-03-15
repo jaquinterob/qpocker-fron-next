@@ -1,10 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
-import { Vote } from "../../../interfaces/vote";
-import { generateHash } from "../../utilities/hash.utility";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Persistence } from "../../utilities/persistence.utility";
 import { APP, URLS } from "../../../constants";
 import DoneOutlineIcon from "@material-ui/icons/DoneOutline";
 
@@ -28,7 +25,7 @@ const Page = () => {
         if (existsUser) {
           setShowError(true);
         } else {
-          Persistence.setItem(APP.USER, user);
+          localStorage.setItem(APP.USER, user);
           router.push(`${URL}${roomParam}`);
         }
       }
@@ -63,7 +60,9 @@ const Page = () => {
             hidden={!showError}
             className="pl-1 text-black fade-in font-light"
           >
-            Ya exite el usuario <em>{user}</em> en la sala.
+            Ya exite el usuario '
+            <strong className="font-extrabold text-gray-700">{user}</strong>' en
+            la sala.
           </div>
         </div>
       </div>

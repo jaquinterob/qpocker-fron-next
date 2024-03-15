@@ -5,9 +5,9 @@ interface Props {
 }
 const VoteCard = ({ vote }: Props) => {
   return (
-    <div className="vote-card">
+    <div className="border-2 border-black flex justify-between rounded px-5  py-4">
       <div>{vote.user}</div>
-      <div>{vote.value}</div>
+      <div>{vote.value === 0 ? "---" : vote.value}</div>
     </div>
   );
 };
