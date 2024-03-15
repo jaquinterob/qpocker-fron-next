@@ -21,13 +21,14 @@ export default function PockerBoard() {
   const user = localStorage.getItem(APP.USER) || "";
 
   useEffect(() => {
+    sendNewVote();
+  }, [value]);
+
+  useEffect(() => {
     if (user === "") {
       router.push("http://localhost:3001/selectUser?room=" + roomParam);
       return;
     }
-    socket.on("votes", (vote) => {
-      setVotes((prevVotes) => [...prevVotes, vote]);
-    });
     socket.on("roomHistory", (votes) => {
       setVotes(votes);
     });
@@ -50,11 +51,25 @@ export default function PockerBoard() {
     };
     socket.emit("newVote", newVote, roomParam);
   };
+
   return (
-    <div className="flex gap-2 flex-col pt-10 m-auto w-[90%] md:w-[60%] lg:w-[40%] ">
-      {votes.map((vote) => (
-        <VoteCard vote={vote} />
-      ))}
+    <div className="fade-in">
+      <div className="flex gap-2 flex-col pt-10 m-auto w-[90%] md:w-[60%] lg:w-[40%] text-lg font-bold ">
+        {votes.map((vote) => (
+          <VoteCard key={vote.user} vote={vote} />
+        ))}
+      </div>
+      <div className="flex gap-2 justify-center pt-10 flex-wrap">
+        {initialSelectVotes.map((item: number, i) => (
+          <VoteSelect
+            key={i}
+            sendNewVote={sendNewVote}
+            setValue={setValue}
+            item={item}
+            value={value}
+          />
+        ))}
+      </div>
     </div>
   );
 }
