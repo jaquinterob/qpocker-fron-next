@@ -11,82 +11,65 @@ import VoteSelect from "@/components/VoteSelect";
 export default function PockerBoard() {
   const initialSelectVotes = [1, 2, 3, 5, 8, 13, 21];
   const searchParams = useSearchParams();
-  const userParam = searchParams.get("user") || "";
-  const hashParam = searchParams.get("hash") || "";
+  const roomParam = searchParams.get("room") || "";
   const [votes, setVotes] = useState<Vote[]>([]);
-  const [vote, setVote] = useState<number | string>("");
-  const [selectVotes, setSelectVotes] = useState<number[]>(initialSelectVotes);
-  const socket = io(URLS.SOCKET);
+  const [value, setValue] = useState<number>(0);
+  const socket = io(URLS.SOCKET, {
+    query: { room: roomParam },
+  });
   const router = useRouter();
+  const user = localStorage.getItem(APP.USER) || "";
 
   useEffect(() => {
-    getCurrrenVotes();
-    validateUser();
-    listenForVotes();
-  }, []);
+    sendNewVote();
+  }, [value]);
 
-  const getCurrrenVotes = () => {
-    socket.emit("currentVotes", (votes: Vote[]) => {
-      setVotes(votes);
-    });
-  };
-
-  const validateUser = () => {
-    if (userParam === "") {
-      router.push("/");
+  useEffect(() => {
+    if (user === "") {
+      router.push("http://localhost:3001/selectUser?room=" + roomParam);
       return;
     }
-    const newUser: Vote = {
-      user: userParam,
-      vote,
-      hash: hashParam,
-    };
-    socket.emit("newUser", newUser);
-  };
-
-  const listenForVotes = () => {
-    socket.on("votes", (votes: Vote[]) => {
-      console.log(votes);
+    socket.on("roomHistory", (votes) => {
       setVotes(votes);
     });
-  };
 
-  const sendAMessage = () => {
     const newVote: Vote = {
-      user: userParam,
-      vote,
-      hash: hashParam,
+      user,
+      value: 0,
     };
-    socket.emit("vote", newVote);
-  };
+    socket.emit("newVote", newVote, roomParam);
 
-  const endSession = () => {
-    localStorage.removeItem(APP.USER);
-    socket.emit("removeUser", userParam);
-    router.push("/");
-  };
+    return () => {
+      socket.off("votes");
+    };
+  }, []);
 
-  const resetVotes = () => {
-    socket.emit("resetVotes");
+  const sendNewVote = () => {
+    const newVote: Vote = {
+      user,
+      value: value,
+    };
+    socket.emit("newVote", newVote, roomParam);
   };
 
   return (
-    <>
-      <button onClick={resetVotes}>Borrar</button>
-      <br />
-      <button onClick={endSession}>Cerrar sesión</button>
-      <br />
-      <br />
-      <div className="flex flex-col gap-2">
+    <div className="fade-in">
+      <div className="flex gap-2 flex-col pt-10 m-auto w-[90%] md:w-[60%] lg:w-[40%] text-lg font-bold ">
         {votes.map((vote) => (
-          <VoteCard vote={vote} />
+          <VoteCard key={vote.user} vote={vote} />
         ))}
       </div>
-      <div className="flex  gap-2 justify-center mt-3 flex-wrap">
-        {selectVotes.map((value) => (
-          <VoteSelect value={value,setVote} />
+      <div className="flex gap-2 justify-center pt-10 flex-wrap">
+        {initialSelectVotes.map((item: number, i) => (
+          <VoteSelect
+            key={i}
+            sendNewVote={sendNewVote}
+            setValue={setValue}
+            item={item}
+            value={value}
+          />
         ))}
       </div>
-    </>
+    </div>
   );
 }
