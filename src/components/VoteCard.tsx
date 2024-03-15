@@ -7,7 +7,7 @@ const VoteCard = ({ vote }: Props) => {
   return (
     <div className="vote-card">
       <div>{vote.user}</div>
-      <div>{vote.vote}</div>
+      <div>{vote.value}</div>
     </div>
   );
 };

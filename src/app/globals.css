@@ -3,7 +3,10 @@
 @tailwind utilities;
 
 body {
-  background-color: #3663ad;
+  background: linear-gradient(to bottom, #f0f0f0, #aeaeae);
+  margin: 0;
+  padding: 0;
+  height: 100vh;
 }
 
 @keyframes fade-in {
@@ -32,17 +35,6 @@ body {
   animation: fade-out 0.5s ease-out forwards;
 }
 
-.vote-card {
-  margin: 0px 30px;
-  display: flex;
-  border-radius: 4px;
-  padding: 14px;
-  background-color: #1b4486;
-  justify-content: space-between;
-  color: #21dbc0;
-}
-
-.vote-select-container {
-  padding: 30px;
-  background-color: #21dbc0;
+.white-button {
+  @apply bg-transparent hover:bg-black hover:text-white text-black font-bold py-3 px-4 border-2 border-black rounded cursor-pointer select-none;
 }
