@@ -17,7 +17,7 @@ const VoteSelect = ({ item, setValue, sendNewVote, value }: Props) => {
       onClick={() => {
         setValue(item);
       }}
-      className="p-8 border-2 border-black text-lg font-bold rounded hover:border-gray-400 cursor-pointer"
+      className="flex items-center justify-center h-24 w-20 border-2 border-black text-lg font-bold rounded hover:bg-gray-200 cursor-pointer "
     >
       {item}
     </div>
