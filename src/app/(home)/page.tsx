@@ -12,7 +12,7 @@ import { APP, URLS } from "../../../constants";
 
 export default function Home() {
   const [room, setRoom] = useState<string>("");
-  const URL = URLS.SERVER + "/selectUser?room=";
+  const URL = URLS.SERVER + "selectUser?room=";
   const router = useRouter();
   const [copied, setCopied] = useState(false);
 

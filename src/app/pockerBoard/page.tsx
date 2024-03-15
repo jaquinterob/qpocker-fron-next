@@ -27,7 +27,7 @@ export default function PockerBoard() {
 
   useEffect(() => {
     if (user === "") {
-      router.push(URLS.SERVER + "/selectUser?room=" + roomParam);
+      router.push(URLS.SERVER + "selectUser?room=" + roomParam);
       return;
     }
     socket.on("roomHistory", (votes) => {
