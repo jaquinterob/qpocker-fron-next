@@ -8,10 +8,11 @@ import React, { useState } from "react";
 import { generateHash } from "../../utilities/hash.utility";
 import { useRouter } from "next/navigation";
 import { Room } from "@material-ui/icons";
+import { APP, URLS } from "../../../constants";
 
 export default function Home() {
   const [room, setRoom] = useState<string>("");
-  const URL = "http://localhost:3001/selectUser?room=";
+  const URL = URLS.SERVER + "/selectUser?room=";
   const router = useRouter();
   const [copied, setCopied] = useState(false);
 

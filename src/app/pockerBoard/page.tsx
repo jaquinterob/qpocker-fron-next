@@ -19,14 +19,15 @@ export default function PockerBoard() {
   });
   const router = useRouter();
   const user = localStorage.getItem(APP.USER) || "";
-
-  useEffect(() => {
-    sendNewVote();
-  }, [value]);
+  const URL =
+    URLS.SERVER +
+    useEffect(() => {
+      sendNewVote();
+    }, [value]);
 
   useEffect(() => {
     if (user === "") {
-      router.push("http://localhost:3001/selectUser?room=" + roomParam);
+      router.push(URLS.SERVER + "/selectUser?room=" + roomParam);
       return;
     }
     socket.on("roomHistory", (votes) => {
