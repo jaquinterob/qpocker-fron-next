@@ -36,5 +36,9 @@ body {
 }
 
 .white-button {
-  @apply bg-transparent hover:bg-black hover:text-white text-black font-bold py-3 px-4 border-2 border-black rounded cursor-pointer select-none;
+  @apply bg-transparent transition hover:bg-black hover:text-white text-black font-bold py-3 px-4 border-2 border-black rounded cursor-pointer select-none;
+}
+
+.white-input {
+  @apply bg-transparent border-2 border-black rounded px-4 py-4 text-lg focus:outline-none focus:border-black font-bold text-black;
 }

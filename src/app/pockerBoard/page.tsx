@@ -7,19 +7,24 @@ import { Vote } from "../../../interfaces/vote";
 import VoteCard from "../../components/VoteCard";
 import { APP, URLS } from "../../../constants";
 import VoteSelect from "@/components/VoteSelect";
+import { Persistence } from "../../utilities/persistence.utility";
 
 export default function PockerBoard() {
   const initialSelectVotes = [1, 2, 3, 5, 8, 13, 21];
   const searchParams = useSearchParams();
   const roomParam = searchParams.get("room") || "";
-  const userParam = searchParams.get("user") || "";
   const [votes, setVotes] = useState<Vote[]>([]);
   const [value, setValue] = useState<number>(0);
   const socket = io(URLS.SOCKET, {
     query: { room: roomParam },
   });
+  const router = useRouter();
+  const user = Persistence.getItem(APP.USER) || '';
 
   useEffect(() => {
+    if (user === '') {
+      router.push("http://localhost:3001/selectUser?room=" + roomParam);
+    }
     socket.on("votes", (vote) => {
       setVotes((prevVotes) => [...prevVotes, vote]);
     });
@@ -28,10 +33,11 @@ export default function PockerBoard() {
     });
 
     const newVote: Vote = {
-      user: userParam,
+      user,
       value: 0,
     };
     socket.emit("newVote", newVote, roomParam);
+
     return () => {
       socket.off("votes");
     };
@@ -39,7 +45,7 @@ export default function PockerBoard() {
 
   const sendNewVote = () => {
     const newVote: Vote = {
-      user: userParam,
+      user,
       value: value,
     };
     socket.emit("newVote", newVote, roomParam);
