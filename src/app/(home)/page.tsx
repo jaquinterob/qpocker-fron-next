@@ -45,10 +45,10 @@ export default function Home() {
         {room !== "" && (
           <div className="flex flex-col items-center pt-6 fade-in">
             <h1 className="text-black italic font-semibold ">
-              Comparte este link:
+              Nueva sala:
             </h1>
             <div className="room flex gap-2 pt-3 flex-col md:flex-row px-4  md:py-4 ">
-              <div className="border-2 border-black rounded-md px-4 py-2 text-lg font-bold">
+              <div className="w-[200px]  md:w-[500px] border-2 border-black rounded-md px-4 py-2 text-lg font-bold overflow-hidden whitespace-nowrap text-ellipsis">
                 {`${URL}${room}`}
               </div>
               <button onClick={copyToClipboard} className="white-button">
@@ -57,7 +57,7 @@ export default function Home() {
               </button>
               <button onClick={redirectToSelectUser} className="white-button">
                 <PlayForWorkIcon className="mr-2 mb-1" />
-                Ingresar a la sala
+                Entrar
               </button>
             </div>
           </div>

@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
+import NotInterestedIcon from "@material-ui/icons/NotInterested";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import CheckIcon from "@material-ui/icons/Check";
 import { Vote } from "../../interfaces/vote";
-import { setInterval } from "timers";
 interface Props {
   vote: Vote;
+  show: boolean;
 }
-const VoteCard = ({ vote }: Props) => {
+const VoteCard = ({ vote, show = true }: Props) => {
   const [blink, setBlink] = useState<boolean>(false);
 
   useEffect(() => {
@@ -27,10 +31,14 @@ const VoteCard = ({ vote }: Props) => {
     <div
       className={`${
         blink ? "blink-once " : ""
-      } border-2 border-black flex justify-between rounded px-5  py-4 `}
+      }  border-2 border-black flex justify-between rounded px-5  py-4 fade-in`}
     >
       <div>{vote.user}</div>
-      <div>{vote.value === 0 ? "---" : vote.value}</div>
+      <div className="pb-1 fade-in">
+        {!show && vote.value === 0 ? <NotInterestedIcon /> : ""}
+        {!show && vote.value !== 0 ? <CheckCircleIcon /> : ""}
+        {!show ? "" : vote.value === 0 ? "---" : vote.value}
+      </div>
     </div>
   );
 };
