@@ -14,20 +14,21 @@ import { APP, URLS } from "../../../constants";
 import VoteSelect from "@/components/VoteSelect";
 import { Item } from "../../../interfaces/item";
 import { log } from "console";
-export const initialSelectVotes: Item[] = [
-  { value: -2, selected: false },
-  { value: -1, selected: false },
-  { value: 1, selected: false },
-  { value: 2, selected: false },
-  { value: 3, selected: false },
-  { value: 5, selected: false },
-  { value: 8, selected: false },
-  { value: 13, selected: false },
-  { value: 20, selected: false },
-  { value: 40, selected: false },
-  { value: 100, selected: false },
-];
+
 export default function PockerBoard() {
+  const initialSelectVotes: Item[] = [
+    { value: -2, selected: false },
+    { value: -1, selected: false },
+    { value: 1, selected: false },
+    { value: 2, selected: false },
+    { value: 3, selected: false },
+    { value: 5, selected: false },
+    { value: 8, selected: false },
+    { value: 13, selected: false },
+    { value: 20, selected: false },
+    { value: 40, selected: false },
+    { value: 100, selected: false },
+  ];
   const [selectVotes, setSelectVotes] = useState<Item[]>(initialSelectVotes);
   const searchParams = useSearchParams();
   const roomParam = searchParams.get("room") || "";
@@ -54,7 +55,6 @@ export default function PockerBoard() {
     copyOfSelectVotes[indexItem].selected = true;
     setSelectVotes(copyOfSelectVotes);
   };
-  
 
   useEffect(() => {
     sendNewVote();
@@ -74,7 +74,7 @@ export default function PockerBoard() {
   const listenValue = () => {
     socket.on("value", () => {
       setValue(0);
-      unselectSelections()
+      unselectSelections();
     });
   };
 
@@ -132,14 +132,13 @@ export default function PockerBoard() {
     socket.emit("resetValue", roomParam);
     socket.emit("resetVotes", roomParam);
     socket.emit("setShow", roomParam, false);
-    
   };
 
-  const unselectSelections=()=>{
+  const unselectSelections = () => {
     const copyOfSelectVotes = [...selectVotes];
     copyOfSelectVotes.forEach((i) => (i.selected = false));
     setSelectVotes(copyOfSelectVotes);
-  }
+  };
 
   return (
     <>
