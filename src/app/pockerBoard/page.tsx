@@ -12,9 +12,23 @@ import { Vote } from "../../../interfaces/vote";
 import VoteCard from "../../components/VoteCard";
 import { APP, URLS } from "../../../constants";
 import VoteSelect from "@/components/VoteSelect";
-
+import { Item } from "../../../interfaces/item";
+import { log } from "console";
+export const initialSelectVotes: Item[] = [
+  { value: -2, selected: false },
+  { value: -1, selected: false },
+  { value: 1, selected: false },
+  { value: 2, selected: false },
+  { value: 3, selected: false },
+  { value: 5, selected: false },
+  { value: 8, selected: false },
+  { value: 13, selected: false },
+  { value: 20, selected: false },
+  { value: 40, selected: false },
+  { value: 100, selected: false },
+];
 export default function PockerBoard() {
-  const initialSelectVotes = [1, 2, 3, 5, 8, 13, 21];
+  const [selectVotes, setSelectVotes] = useState<Item[]>(initialSelectVotes);
   const searchParams = useSearchParams();
   const roomParam = searchParams.get("room") || "";
   const [votes, setVotes] = useState<Vote[]>([]);
@@ -33,6 +47,15 @@ export default function PockerBoard() {
     },
   }))(Tooltip);
 
+  const handleSelect = (item: Item) => {
+    const indexItem = selectVotes.findIndex((i) => i.value === item.value);
+    const copyOfSelectVotes = [...selectVotes];
+    copyOfSelectVotes.forEach((i) => (i.selected = false));
+    copyOfSelectVotes[indexItem].selected = true;
+    setSelectVotes(copyOfSelectVotes);
+  };
+  
+
   useEffect(() => {
     sendNewVote();
   }, [value]);
@@ -50,8 +73,8 @@ export default function PockerBoard() {
 
   const listenValue = () => {
     socket.on("value", () => {
-      console.log('se actualizó el value');
       setValue(0);
+      unselectSelections()
     });
   };
 
@@ -109,7 +132,14 @@ export default function PockerBoard() {
     socket.emit("resetValue", roomParam);
     socket.emit("resetVotes", roomParam);
     socket.emit("setShow", roomParam, false);
+    
   };
+
+  const unselectSelections=()=>{
+    const copyOfSelectVotes = [...selectVotes];
+    copyOfSelectVotes.forEach((i) => (i.selected = false));
+    setSelectVotes(copyOfSelectVotes);
+  }
 
   return (
     <>
@@ -172,13 +202,14 @@ export default function PockerBoard() {
           </div>
         </div>
         <div className="flex gap-2 justify-center pt-10 flex-wrap">
-          {initialSelectVotes.map((item: number, i) => (
+          {selectVotes.map((item, i) => (
             <VoteSelect
               key={i}
-              sendNewVote={sendNewVote}
               setValue={setValue}
               item={item}
-              value={value}
+              setSelectVotes={setSelectVotes}
+              selectVotes={selectVotes}
+              handleSelect={handleSelect}
             />
           ))}
         </div>
@@ -186,7 +217,6 @@ export default function PockerBoard() {
       <div className="bottom-0 left-2 fixed">
         <em> Planing - {new Date().toDateString()}</em>
       </div>
-      {value}
     </>
   );
 }

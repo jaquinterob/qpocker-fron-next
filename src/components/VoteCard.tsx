@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import NotInterestedIcon from "@material-ui/icons/NotInterested";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
-import CheckIcon from "@material-ui/icons/Check";
+import LocalCafeIcon from "@material-ui/icons/LocalCafe";
+
 import { Vote } from "../../interfaces/vote";
 interface Props {
   vote: Vote;
@@ -37,7 +37,7 @@ const VoteCard = ({ vote, show = true }: Props) => {
       <div className="pb-1 fade-in">
         {!show && vote.value === 0 ? <NotInterestedIcon /> : ""}
         {!show && vote.value !== 0 ? <CheckCircleIcon /> : ""}
-        {!show ? "" : vote.value === 0 ? "---" : vote.value}
+        {!show ? "" : vote.value === 0 ? "---" : vote.value === -1 ? <LocalCafeIcon /> : vote.value === -2 ? "?" : vote.value}
       </div>
     </div>
   );
