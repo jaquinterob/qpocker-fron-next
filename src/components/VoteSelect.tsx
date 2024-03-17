@@ -11,7 +11,6 @@ interface Props {
   value: number;
 }
 const VoteSelect = ({ item, setValue, sendNewVote, value }: Props) => {
-
   return (
     <div
       onClick={() => {

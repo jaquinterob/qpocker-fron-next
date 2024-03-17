@@ -4,8 +4,6 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import CachedIcon from "@material-ui/icons/Cached";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
-import DeleteIcon from "@material-ui/icons/Delete";
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import { Theme, Tooltip, withStyles } from "@material-ui/core";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -14,7 +12,6 @@ import { Vote } from "../../../interfaces/vote";
 import VoteCard from "../../components/VoteCard";
 import { APP, URLS } from "../../../constants";
 import VoteSelect from "@/components/VoteSelect";
-import { ShowChart } from "@material-ui/icons";
 
 export default function PockerBoard() {
   const initialSelectVotes = [1, 2, 3, 5, 8, 13, 21];
@@ -44,10 +41,19 @@ export default function PockerBoard() {
     initValidation();
     registerFirsVote();
     listenShow();
+    listenValue();
     return () => {
+      socket.emit("logOut", user, roomParam);
       socket.off("votes");
     };
   }, []);
+
+  const listenValue = () => {
+    socket.on("value", () => {
+      console.log('se actualizó el value');
+      setValue(0);
+    });
+  };
 
   const listenShow = () => {
     socket.on("show", (show: boolean) => {
@@ -100,6 +106,7 @@ export default function PockerBoard() {
   };
 
   const resetVotes = () => {
+    socket.emit("resetValue", roomParam);
     socket.emit("resetVotes", roomParam);
     socket.emit("setShow", roomParam, false);
   };
@@ -179,6 +186,7 @@ export default function PockerBoard() {
       <div className="bottom-0 left-2 fixed">
         <em> Planing - {new Date().toDateString()}</em>
       </div>
+      {value}
     </>
   );
 }
