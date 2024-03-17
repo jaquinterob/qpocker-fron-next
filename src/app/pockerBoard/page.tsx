@@ -4,6 +4,8 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import CachedIcon from "@material-ui/icons/Cached";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import DeleteIcon from "@material-ui/icons/Delete";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import { Theme, Tooltip, withStyles } from "@material-ui/core";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -97,6 +99,11 @@ export default function PockerBoard() {
     socket.emit("setShow", roomParam, !show);
   };
 
+  const resetVotes = () => {
+    socket.emit("resetVotes", roomParam);
+    socket.emit("setShow", roomParam, false);
+  };
+
   return (
     <>
       <div className="fade-in">
@@ -108,7 +115,7 @@ export default function PockerBoard() {
             </LightTooltip>
           </div>
         </div>
-        <div className="text-center pt-4 font-bold text-4xl">
+        <div className="text-center py-4 font-bold text-4xl">
           {user}
           <span onClick={changeUserName}>
             <LightTooltip title="cambiar nombre" placement="right">
@@ -126,21 +133,36 @@ export default function PockerBoard() {
               className=" absolute  right-2 -top-[28px] "
             >
               {show ? (
-                <VisibilityOffIcon
-                  className="text-gray-400 hover:text-black cursor-pointer fade-in"
-                  fontSize={"large"}
-                />
+                <div onClick={showVotes}>
+                  <VisibilityOffIcon
+                    className="text-gray-400 hover:text-black cursor-pointer fade-in"
+                    fontSize={"large"}
+                  />
+                </div>
               ) : (
-                <VisibilityIcon
-                  className="text-gray-400 hover:text-black cursor-pointer fade-in"
-                  fontSize={"large"}
-                />
+                <div onClick={showVotes}>
+                  <VisibilityIcon
+                    className="text-gray-400 hover:text-black cursor-pointer fade-in"
+                    fontSize={"large"}
+                  />
+                </div>
               )}
             </div>
+            <div
+              onClick={showVotes}
+              className=" absolute  right-12 -top-[28px] "
+            ></div>
           </div>
           {votes.map((vote) => (
             <VoteCard key={vote.user} vote={vote} show={show} />
           ))}
+
+          <div
+            onClick={resetVotes}
+            className="text-right w-full font-normal text-sm text-gray-400 hover:text-black hover:underline cursor-pointer transition"
+          >
+            Borrar votos
+          </div>
         </div>
         <div className="flex gap-2 justify-center pt-10 flex-wrap">
           {initialSelectVotes.map((item: number, i) => (
@@ -154,7 +176,7 @@ export default function PockerBoard() {
           ))}
         </div>
       </div>
-      <div className="fixed bottom-0 left-2 fixed">
+      <div className="bottom-0 left-2 fixed">
         <em> Planing - {new Date().toDateString()}</em>
       </div>
     </>

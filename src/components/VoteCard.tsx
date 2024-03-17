@@ -29,9 +29,9 @@ const VoteCard = ({ vote, show = true }: Props) => {
 
   return (
     <div
-      className={`${
-        blink ? "blink-once " : ""
-      }  border-2 border-black flex justify-between rounded px-5  py-4 fade-in`}
+      className={` ${
+        vote.value !== 0 ? "bg-white" : ""
+      } border-2 border-black flex justify-between rounded px-5  py-4 fade-in`}
     >
       <div>{vote.user}</div>
       <div className="pb-1 fade-in">
