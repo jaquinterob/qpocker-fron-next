@@ -165,7 +165,7 @@ export default function PockerBoard() {
         </div>
         <div className="flex gap-2 flex-col pt-5 m-auto w-[90%] md:w-[60%] lg:w-[40%] text-lg font-bold ">
           <div className="relative">
-            <div className=" absolute  -right-[1px] -top-[18px] text-right w-fit font-normal text-sm text-gray-400 hover:text-black hover:underline cursor-pointer transition ">
+            <div className=" absolute  -right-[1px] -top-[24px] text-right w-fit font-normal text-sm text-gray-400 hover:text-black hover:underline cursor-pointer transition ">
               {show ? (
                 <div
                   onClick={showVotes}
