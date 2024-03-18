@@ -34,35 +34,31 @@ export default function Home() {
     router.push(`${URL}${room}`);
   };
   return (
-    <>
-      <div className="flex flex-col pt-10 fade-in">
-        <div className="flex justify-center gap-2 ">
-          <div onClick={newRoom} className="white-button">
-            <AddBoxIcon className="mr-2 -mt-1" />
-            NUEVA SALA
+    <div className="flex flex-col pt-10 fade-in">
+      <div className="flex justify-center gap-2 ">
+        <div onClick={newRoom} className="white-button">
+          <AddBoxIcon className="mr-2 -mt-1" />
+          NUEVA SALA
+        </div>
+      </div>
+      {room !== "" && (
+        <div className="flex flex-col items-center pt-6 fade-in">
+          <h1 className="text-black italic font-semibold ">Nueva sala:</h1>
+          <div className="room flex gap-2 pt-3 flex-col md:flex-row px-4  md:py-4 ">
+            <div className="w-[200px]  md:w-[500px] border-2 border-black rounded-md px-4 py-2 text-lg font-bold overflow-hidden whitespace-nowrap text-ellipsis">
+              {`${URL}${room}`}
+            </div>
+            <button onClick={copyToClipboard} className="white-button">
+              <FileCopyIcon className="mr-2" />
+              {copied ? "copiado!" : "copiar"}
+            </button>
+            <button onClick={redirectToSelectUser} className="white-button">
+              <PlayForWorkIcon className="mr-2 mb-1" />
+              Entrar
+            </button>
           </div>
         </div>
-        {room !== "" && (
-          <div className="flex flex-col items-center pt-6 fade-in">
-            <h1 className="text-black italic font-semibold ">
-              Nueva sala:
-            </h1>
-            <div className="room flex gap-2 pt-3 flex-col md:flex-row px-4  md:py-4 ">
-              <div className="w-[200px]  md:w-[500px] border-2 border-black rounded-md px-4 py-2 text-lg font-bold overflow-hidden whitespace-nowrap text-ellipsis">
-                {`${URL}${room}`}
-              </div>
-              <button onClick={copyToClipboard} className="white-button">
-                <FileCopyIcon className="mr-2" />
-                {copied ? "copiado!" : "copiar"}
-              </button>
-              <button onClick={redirectToSelectUser} className="white-button">
-                <PlayForWorkIcon className="mr-2 mb-1" />
-                Entrar
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-    </>
+      )}
+    </div>
   );
 }

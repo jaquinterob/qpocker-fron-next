@@ -31,10 +31,10 @@ const VoteCard = ({ vote, show = true }: Props) => {
     <div
       className={` ${
         vote.value !== 0 ? "bg-white" : ""
-      } border-2 border-black flex justify-between rounded px-5  py-4 fade-in`}
+      } border-2 border-black flex justify-between rounded px-4  py-2 fade-in`}
     >
       <div>{vote.user}</div>
-      <div className="pb-1 fade-in">
+      <div className=" fade-in">
         {!show && vote.value === 0 ? <NotInterestedIcon /> : ""}
         {!show && vote.value !== 0 ? <CheckCircleIcon /> : ""}
         {!show ? "" : vote.value === 0 ? "---" : vote.value === -1 ? <LocalCafeIcon /> : vote.value === -2 ? "?" : vote.value}

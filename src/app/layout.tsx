@@ -16,7 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className }>
+        {children}
+      </body>
       <div className="-z-10 md:z-10 cursor-none transition fixed bottom-0 right-0 text-right flex flex-col justify-end text-transparent hover:text-gray-800 fade-in  hidden md:block ">
         <div className=" -mb-3 text-center text-sm">
           Powered by <strong>JohnQ</strong>

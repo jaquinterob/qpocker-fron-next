@@ -3,10 +3,9 @@
 @tailwind utilities;
 
 body {
-  background: linear-gradient(to bottom, #f0f0f0, #aeaeae);
+  background: #e5e5e5;
   margin: 0;
   padding: 0;
-  height: 100vh;
 }
 
 @keyframes fade-in {

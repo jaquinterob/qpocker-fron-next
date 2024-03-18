@@ -144,7 +144,7 @@ export default function PockerBoard() {
   return (
     <>
       <div className="fade-in">
-        <div className="flex justify-between p-2">
+        <div className="flex justify-between p-2 pr-3">
           <div className="red">qpocker</div>
           <div onClick={leaveRoom}>
             <LightTooltip title="Salir de la sala" placement="left">
@@ -200,7 +200,7 @@ export default function PockerBoard() {
             Borrar Votos <DeleteSweepIcon />
           </div>
         </div>
-        <div className="flex gap-2 justify-center pt-10 flex-wrap  w-[90%] md:w-[60%] lg:w-[40%] m-auto">
+        <div className="flex gap-2 justify-center py-10 flex-wrap  w-[90%] md:w-[60%] lg:w-[40%] m-auto">
           {selectVotes.map((item, i) => (
             <VoteSelect
               key={i}

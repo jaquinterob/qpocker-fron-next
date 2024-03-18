@@ -23,7 +23,7 @@ const VoteSelect = ({
       }}
       className={`${
         item.selected && "bg-white"
-      } flex items-center justify-center h-24 w-20 border-2 border-black text-lg font-bold rounded hover:bg-gray-200 cursor-pointer`}
+      } flex items-center justify-center h-24 w-20 border-2 border-black text-lg font-bold rounded transition hover:bg-white cursor-pointer`}
     >
       {item.value === -1 ? (
         <LocalCafeIcon />
