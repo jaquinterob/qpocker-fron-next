@@ -1,4 +1,5 @@
 import LocalCafeIcon from "@material-ui/icons/LocalCafe";
+import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
 import { Item } from "../../interfaces/item";
 import { Dispatch, SetStateAction } from "react";
 interface Props {
@@ -29,6 +30,8 @@ const VoteSelect = ({
         <LocalCafeIcon />
       ) : item.value === -2 ? (
         "?"
+      ) : item.value === 100 ? (
+        <AllInclusiveIcon />
       ) : (
         item.value
       )}
