@@ -32,6 +32,12 @@ const Page = () => {
     );
   };
 
+  const handleKeyPress = (event: any) => {
+    if (event.key === "Enter" && event.target.value !== '') {
+      registerUser()
+    }
+  };
+
   return (
     <div className="flex justify-center mt-10 fade-in">
       <div>
@@ -43,6 +49,7 @@ const Page = () => {
               setUser(e.target.value);
               setShowError(false);
             }}
+            onKeyDown={handleKeyPress}
             type="text"
             className="white-input"
             placeholder="Escribe tu nombre..."
