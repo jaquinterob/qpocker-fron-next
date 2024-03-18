@@ -17,9 +17,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>{children}</body>
-      <div className="-z-10 md:z-10 cursor-none transition fixed bottom-0 align-bottom fade-in m-auto w-full text-center flex justify-center flex-col text-transparent hover:text-gray-800">
-        <div className=" -mb-3 ">Powered by <strong>JohnQ</strong> from:</div>
-        <img className="h-[10vh] m-auto" src="/images/celerix.png" alt="celerix image" />
+      <div className="-z-10 md:z-10 cursor-none transition fixed bottom-0 right-0 text-right flex flex-col justify-end text-transparent hover:text-gray-800 fade-in  hidden md:block ">
+        <div className=" -mb-3 text-center text-sm">
+          Powered by <strong>JohnQ</strong>
+        </div>
+        <img
+          className="h-[10vh] "
+          src="/images/celerix.png"
+          alt="celerix image"
+        />
       </div>
     </html>
   );
