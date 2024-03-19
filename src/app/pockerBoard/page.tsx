@@ -144,7 +144,7 @@ export default function PockerBoard() {
     <>
       <div className="fade-in">
         <div className="flex justify-between p-2 pr-3">
-          <div className="red">qpocker</div>
+          <div className="select-none cursor-none">qpocker</div>
           <div onClick={leaveRoom}>
             <LightTooltip title="Salir de la sala" placement="left">
               <ExitToAppIcon className="cursor-pointer" />
