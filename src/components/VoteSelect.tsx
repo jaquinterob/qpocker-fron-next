@@ -23,8 +23,8 @@ const VoteSelect = ({
         setValue(item.value);
       }}
       className={`${
-        item.selected && "bg-white"
-      } flex items-center justify-center h-24 w-20 border-2 border-black text-lg font-bold rounded transition hover:bg-white cursor-pointer`}
+        item.selected && "bg-white shadow-lg  border-black border-[3px]"
+      } relative hover:shadow-lg flex items-center justify-center h-24 w-20 border-2 border-black text-lg font-bold rounded transition hover:bg-white cursor-pointer`}
     >
       {item.value === -1 ? (
         <LocalCafeIcon />
