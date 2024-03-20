@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import { generateHash } from "../../utilities/hash.utility";
 import { useRouter } from "next/navigation";
 import { Room } from "@material-ui/icons";
-import { APP, URLS } from "../../../constants";
+import { APP, ROUTES, URLS } from "../../../constants";
 
 export default function Home() {
   const [room, setRoom] = useState<string>("");
@@ -27,7 +27,29 @@ export default function Home() {
   };
 
   const newRoom = () => {
-    setRoom(generateHash(new Date().toString()));
+    const hash = generateHash(new Date().toString());
+    setRoom(hash);
+    fetch(`${URLS.SOCKET}/${ROUTES.ROOM}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ hash }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Hubo un problema con la petición.");
+        }
+        return response.json(); // Devuelve una promesa que resuelve con los datos JSON de la respuesta
+      })
+      .then((data) => {
+        console.log("Respuesta del servidor:", data);
+        // Hacer algo con los datos de la respuesta
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        // Manejar el error
+      });
   };
 
   const redirectToSelectUser = () => {
