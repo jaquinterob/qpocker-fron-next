@@ -29,7 +29,7 @@ export default function Home() {
   const newRoom = () => {
     const hash = generateHash(new Date().toString());
     setRoom(hash);
-    fetch(`${URLS.SOCKET}/${ROUTES.ROOM}`, {
+    fetch(`${URLS.SOCKET}${ROUTES.ROOM}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
