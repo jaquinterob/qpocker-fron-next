@@ -1,8 +1,8 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { io } from "socket.io-client";
 import { useRouter, useSearchParams } from "next/navigation";
-import { APP, URLS } from "../../../constants";
+import { APP, URLS } from "../../constants";
 import DoneOutlineIcon from "@material-ui/icons/DoneOutline";
 
 const Page = () => {
@@ -33,8 +33,8 @@ const Page = () => {
   };
 
   const handleKeyPress = (event: any) => {
-    if (event.key === "Enter" && event.target.value !== '') {
-      registerUser()
+    if (event.key === "Enter" && event.target.value !== "") {
+      registerUser();
     }
   };
 

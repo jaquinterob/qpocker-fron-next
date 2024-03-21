@@ -7,54 +7,41 @@ import PlayForWorkIcon from "@material-ui/icons/PlayForWork";
 import React, { useState } from "react";
 import { generateHash } from "../../utilities/hash.utility";
 import { useRouter } from "next/navigation";
-import { Room } from "@material-ui/icons";
-import { APP, ROUTES, URLS } from "../../../constants";
+import { URLS } from "../../constants";
+import { RoomService } from "@/services/room.service";
+import { copy } from "@/utilities/copy.utility";
 
 export default function Home() {
   const [room, setRoom] = useState<string>("");
   const URL = URLS.SERVER + "pockerBoard?room=";
   const router = useRouter();
   const [copied, setCopied] = useState(false);
+  const roomService = new RoomService();
 
   const copyToClipboard = () => {
-    navigator.clipboard
-      .writeText(URL + room)
-      .then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 3000); // Reiniciar el estado después de 1.5 segundos
-      })
-      .catch((err) => console.error("Error al copiar al portapapeles: ", err));
+    copy(URL, room).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 3000);
+    });
   };
 
   const newRoom = () => {
     const hash = generateHash(new Date().toString());
     setRoom(hash);
-    fetch(`${URLS.SOCKET}${ROUTES.ROOM}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ hash }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Hubo un problema con la petición.");
-        }
-        return response.json(); // Devuelve una promesa que resuelve con los datos JSON de la respuesta
-      })
+    roomService
+      .saveNewRoom(hash)
       .then((data) => {
         console.log("Respuesta del servidor:", data);
-        // Hacer algo con los datos de la respuesta
       })
       .catch((error) => {
         console.error("Error:", error);
-        // Manejar el error
       });
   };
 
   const redirectToSelectUser = () => {
     router.push(`${URL}${room}`);
   };
+
   return (
     <div className="flex flex-col pt-10 fade-in">
       <div className="flex justify-center gap-2 ">

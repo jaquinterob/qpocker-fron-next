@@ -11,24 +11,13 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { Vote } from "../../../interfaces/vote";
 import VoteCard from "../../components/VoteCard";
-import { APP, URLS } from "../../../constants";
+import { APP, URLS } from "../../constants";
 import VoteSelect from "@/components/VoteSelect";
 import { Item } from "../../../interfaces/item";
-import { log } from "console";
+import { posiblesVotes } from "@/data/selectVotes";
 
 export default function PockerBoard() {
-  const initialSelectVotes: Item[] = [
-    { value: -2, selected: false },
-    { value: -1, selected: false },
-    { value: 0.5, selected: false },
-    { value: 1, selected: false },
-    { value: 2, selected: false },
-    { value: 3, selected: false },
-    { value: 5, selected: false },
-    { value: 8, selected: false },
-    { value: 13, selected: false },
-    { value: 100, selected: false },
-  ];
+  const initialSelectVotes: Item[] = posiblesVotes;
   const [selectVotes, setSelectVotes] = useState<Item[]>(initialSelectVotes);
   const searchParams = useSearchParams();
   const roomParam = searchParams.get("room") || "";
@@ -83,6 +72,7 @@ export default function PockerBoard() {
       setShow(show);
     });
   };
+
   const initValidation = () => {
     if (user === "") {
       router.push(URLS.SERVER + "selectUser?room=" + roomParam);
@@ -141,77 +131,75 @@ export default function PockerBoard() {
   };
 
   return (
-    <>
-      <div className="fade-in">
-        <div className="flex justify-between p-2 pr-3">
-          <div className="select-none cursor-none">qpocker</div>
-          <div onClick={leaveRoom}>
-            <LightTooltip title="Salir de la sala" placement="left">
-              <ExitToAppIcon className="cursor-pointer" />
-            </LightTooltip>
-          </div>
-        </div>
-        <div className="text-center py-4 font-bold text-4xl">
-          {user}
-          <span onClick={changeUserName}>
-            <LightTooltip title="cambiar nombre" placement="right">
-              <CachedIcon
-                fontSize="large"
-                className="cursor-pointer pl-2 text-gray-400 hover:text-black "
-              />
-            </LightTooltip>
-          </span>
-        </div>
-        <div className="flex gap-2 flex-col pt-5 m-auto w-[90%] md:w-[60%] lg:w-[40%] text-lg font-bold ">
-          <div className="relative">
-            <div className=" absolute  -right-[1px] -top-[24px] text-right w-fit font-normal text-sm text-gray-400 hover:text-black hover:underline cursor-pointer transition ">
-              {show ? (
-                <div
-                  onClick={showVotes}
-                  className="text-right w-full font-normal text-sm text-gray-400 hover:text-black hover:underline cursor-pointer transition"
-                >
-                  Ocultar
-                  <VisibilityOffIcon className="ml-1" />
-                </div>
-              ) : (
-                <div
-                  onClick={showVotes}
-                  className="text-right w-full font-normal text-sm text-gray-400 hover:text-black hover:underline cursor-pointer transition"
-                >
-                  Mostrar
-                  <VisibilityIcon className="ml-1" />
-                </div>
-              )}
-            </div>
-            <div
-              onClick={showVotes}
-              className=" absolute  right-12 -top-[28px] "
-            ></div>
-          </div>
-          {votes.map((vote) => (
-            <VoteCard key={vote.user} vote={vote} show={show} />
-          ))}
-
-          <div
-            onClick={resetVotes}
-            className="text-right w-full font-normal text-sm text-gray-400 hover:text-black hover:underline cursor-pointer transition"
-          >
-            Borrar Votos <DeleteSweepIcon />
-          </div>
-        </div>
-        <div className="flex gap-2 justify-center py-10 flex-wrap  w-[90%] md:w-[60%] lg:w-[40%] m-auto">
-          {selectVotes.map((item, i) => (
-            <VoteSelect
-              key={i}
-              setValue={setValue}
-              item={item}
-              setSelectVotes={setSelectVotes}
-              selectVotes={selectVotes}
-              handleSelect={handleSelect}
-            />
-          ))}
+    <div className="fade-in">
+      <div className="flex justify-between p-2 pr-3">
+        <div className="select-none cursor-none">planingPocker</div>
+        <div onClick={leaveRoom}>
+          <LightTooltip title="Salir de la sala" placement="left">
+            <ExitToAppIcon className="cursor-pointer" />
+          </LightTooltip>
         </div>
       </div>
-    </>
+      <div className="text-center py-4 font-bold text-4xl">
+        {user}
+        <span onClick={changeUserName}>
+          <LightTooltip title="cambiar nombre" placement="right">
+            <CachedIcon
+              fontSize="large"
+              className="cursor-pointer pl-2 text-gray-400 hover:text-black "
+            />
+          </LightTooltip>
+        </span>
+      </div>
+      <div className="flex gap-2 flex-col pt-5 m-auto w-[90%] md:w-[60%] lg:w-[40%] text-lg font-bold ">
+        <div className="relative">
+          <div className=" absolute  -right-[1px] -top-[24px] text-right w-fit font-normal text-sm text-gray-400 hover:text-black hover:underline cursor-pointer transition ">
+            {show ? (
+              <div
+                onClick={showVotes}
+                className="text-right w-full font-normal text-sm text-gray-400 hover:text-black hover:underline cursor-pointer transition"
+              >
+                Ocultar
+                <VisibilityOffIcon className="ml-1" />
+              </div>
+            ) : (
+              <div
+                onClick={showVotes}
+                className="text-right w-full font-normal text-sm text-gray-400 hover:text-black hover:underline cursor-pointer transition"
+              >
+                Mostrar
+                <VisibilityIcon className="ml-1" />
+              </div>
+            )}
+          </div>
+          <div
+            onClick={showVotes}
+            className=" absolute  right-12 -top-[28px] "
+          ></div>
+        </div>
+        {votes.map((vote) => (
+          <VoteCard key={vote.user} vote={vote} show={show} />
+        ))}
+
+        <div
+          onClick={resetVotes}
+          className="text-right w-full font-normal text-sm text-gray-400 hover:text-black hover:underline cursor-pointer transition"
+        >
+          Borrar Votos <DeleteSweepIcon />
+        </div>
+      </div>
+      <div className="flex gap-2 justify-center py-10 flex-wrap  w-[90%] md:w-[60%] lg:w-[40%] m-auto">
+        {selectVotes.map((item, i) => (
+          <VoteSelect
+            key={i}
+            setValue={setValue}
+            item={item}
+            setSelectVotes={setSelectVotes}
+            selectVotes={selectVotes}
+            handleSelect={handleSelect}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
