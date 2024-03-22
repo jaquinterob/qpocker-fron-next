@@ -7,8 +7,9 @@ const inter = Inter({ subsets: ["latin"] });
 const author: Author = {
   name: "John Alexander Quintero Berrío",
 };
+
 export const metadata: Metadata = {
-  title: "qpocker - La mejor aplicación para jugar al póquer en línea",
+  title: "Planing Pocker",
   description:
     "qpocker es tu herramienta de planificación de póquer ágil para Scrum. Organiza y estima tus historias de usuario con eficiencia, juega con tu equipo y gestiona tus sesiones de planificación de manera efectiva. ¡Regístrate ahora y lleva tus reuniones de planificación de Scrum al siguiente nivel!",
   keywords: [

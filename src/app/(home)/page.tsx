@@ -3,6 +3,7 @@
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import PlayForWorkIcon from "@material-ui/icons/PlayForWork";
+import ChangeHistoryIcon from "@material-ui/icons/ChangeHistory";
 
 import React, { useState } from "react";
 import { generateHash } from "../../utilities/hash.utility";
@@ -42,6 +43,10 @@ export default function Home() {
     router.push(`${URL}${room}`);
   };
 
+  const redirectToHistoryRooms = () => {
+    router.push("rooms");
+  };
+
   return (
     <div className="flex flex-col pt-10 fade-in">
       <div className="flex justify-center gap-2 ">
@@ -54,7 +59,7 @@ export default function Home() {
         <div className="flex flex-col items-center pt-6 fade-in">
           <h1 className="text-black italic font-semibold ">Nueva sala:</h1>
           <div className="room flex gap-2 pt-3 flex-col md:flex-row px-4  md:py-4 ">
-            <div className="w-[200px]  md:w-[500px] border-2 border-black rounded-md px-4 py-2 text-lg font-bold overflow-hidden whitespace-nowrap text-ellipsis">
+            <div className="w-[200px]  md:w-[500px] border-2 border-black rounded-md pt-3 px-3 text-lg font-bold overflow-hidden whitespace-nowrap text-ellipsis">
               {`${URL}${room}`}
             </div>
             <button onClick={copyToClipboard} className="white-button">
@@ -68,6 +73,12 @@ export default function Home() {
           </div>
         </div>
       )}
+      <div
+        onDoubleClick={redirectToHistoryRooms}
+        className="absolute bottom-0 p-2 text-transparent hover:text-black transition cursor-none"
+      >
+        <ChangeHistoryIcon />
+      </div>
     </div>
   );
 }
