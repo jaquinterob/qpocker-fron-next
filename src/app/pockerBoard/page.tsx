@@ -50,6 +50,7 @@ export default function PockerBoard() {
   }, [value]);
 
   useEffect(() => {
+    resetSelectVotes();
     initValidation();
     registerFirsVote();
     listenShow();
@@ -59,6 +60,12 @@ export default function PockerBoard() {
       socket.off("votes");
     };
   }, []);
+
+  const resetSelectVotes = () => {
+    const copyOfSelectVotes = [...selectVotes];
+    copyOfSelectVotes.forEach((i) => (i.selected = false));
+    setSelectVotes(copyOfSelectVotes);
+  };
 
   const listenValue = () => {
     socket.on("value", () => {
