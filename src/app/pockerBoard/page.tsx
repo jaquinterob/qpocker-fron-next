@@ -5,7 +5,15 @@ import CachedIcon from "@material-ui/icons/Cached";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import DeleteSweepIcon from "@material-ui/icons/DeleteSweep";
-import { Theme, Tooltip, withStyles } from "@material-ui/core";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import {
+  IconButton,
+  Theme,
+  Tooltip,
+  makeStyles,
+  withStyles,
+} from "@material-ui/core";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
@@ -15,6 +23,7 @@ import { APP, URLS } from "../../constants";
 import VoteSelect from "@/components/VoteSelect";
 import { Item } from "../../../interfaces/item";
 import { posiblesVotes } from "@/data/selectVotes";
+import { Snackbar } from "@mui/material";
 
 export default function PockerBoard() {
   const initialSelectVotes: Item[] = posiblesVotes;
@@ -24,6 +33,7 @@ export default function PockerBoard() {
   const [votes, setVotes] = useState<Vote[]>([]);
   const [value, setValue] = useState<number>(0);
   const [show, setShow] = useState<boolean>(false);
+  const [showBy, setShowBy] = useState<string>("");
   const socket = io(URLS.SOCKET, {
     query: { room: roomParam },
   });
@@ -36,6 +46,7 @@ export default function PockerBoard() {
       fontSize: 14,
     },
   }))(Tooltip);
+  const [openSnack, setOpenSnack] = useState<boolean>(false);
 
   const handleSelect = (item: Item) => {
     const indexItem = selectVotes.findIndex((i) => i.value === item.value);
@@ -50,16 +61,38 @@ export default function PockerBoard() {
   }, [value]);
 
   useEffect(() => {
+    if (showBy !== "") {
+      setOpenSnack(true);
+    }
+  }, [showBy]);
+
+  useEffect(() => {
     resetSelectVotes();
     initValidation();
     registerFirsVote();
     listenShow();
     listenValue();
+    listenShowBy();
     return () => {
       socket.emit("logOut", user, roomParam);
       socket.off("votes");
     };
   }, []);
+
+  const listenShowBy = () => {
+    let timeoutId!: any;
+
+    socket.on("showBy", (userName) => {
+      console.log(userName);
+      setShowBy(userName);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      timeoutId = setTimeout(() => {
+        setShowBy("");
+      }, 10000);
+    });
+  };
 
   const resetSelectVotes = () => {
     const copyOfSelectVotes = [...selectVotes];
@@ -122,7 +155,7 @@ export default function PockerBoard() {
   };
 
   const showVotes = () => {
-    socket.emit("setShow", roomParam, !show);
+    socket.emit("setShow", roomParam, !show, user);
   };
 
   const resetVotes = () => {
@@ -135,6 +168,17 @@ export default function PockerBoard() {
     const copyOfSelectVotes = [...selectVotes];
     copyOfSelectVotes.forEach((i) => (i.selected = false));
     setSelectVotes(copyOfSelectVotes);
+  };
+
+  const handleClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSnack(false);
   };
 
   return (
@@ -207,6 +251,17 @@ export default function PockerBoard() {
           />
         ))}
       </div>
+      <Snackbar
+        open={openSnack}
+        autoHideDuration={10000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <div className="-mr-3  mt-7 md:mt-4 bg-transparent text-gray-500 transition  italic px-4 font-thin text-sm">
+          {showBy !== "" && ` ${showBy} ->`}{" "}
+          <VisibilityOutlinedIcon className="text-gray-400" />
+        </div>
+      </Snackbar>
     </div>
   );
 }
