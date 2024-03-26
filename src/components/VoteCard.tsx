@@ -1,3 +1,4 @@
+"user client";
 import React, { useEffect, useState } from "react";
 import NotInterestedIcon from "@material-ui/icons/NotInterested";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";

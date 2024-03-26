@@ -1,3 +1,4 @@
+"use client";
 import LocalCafeIcon from "@material-ui/icons/LocalCafe";
 import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
 import { Item } from "../../interfaces/item";

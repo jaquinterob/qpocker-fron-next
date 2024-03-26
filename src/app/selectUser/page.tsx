@@ -25,7 +25,9 @@ const Page = () => {
         if (existsUser) {
           setShowError(true);
         } else {
-          window.localStorage.setItem(APP.USER, user);
+          if (typeof window !== "undefined") {
+            window.localStorage.setItem(APP.USER, user);
+          }
           router.push(`${URL}${roomParam}`);
         }
       }
@@ -53,6 +55,7 @@ const Page = () => {
             type="text"
             className="white-input"
             placeholder="Escribe tu nombre..."
+            maxLength={30}
           />
           <button
             hidden={user === "" || showError}

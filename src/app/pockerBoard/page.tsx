@@ -1,19 +1,14 @@
 "use client";
 
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import CachedIcon from "@material-ui/icons/Cached";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import DeleteSweepIcon from "@material-ui/icons/DeleteSweep";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import {
-  IconButton,
-  Theme,
-  Tooltip,
-  makeStyles,
-  withStyles,
-} from "@material-ui/core";
+import { Theme, Tooltip, withStyles } from "@material-ui/core";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
@@ -38,7 +33,11 @@ export default function PockerBoard() {
     query: { room: roomParam },
   });
   const router = useRouter();
-  const user = window.localStorage.getItem(APP.USER) || "";
+  const [user, setUser] = useState<string>(
+    typeof window !== "undefined"
+      ? window.localStorage.getItem(APP.USER) || ""
+      : ""
+  );
   const LightTooltip = withStyles((theme: Theme) => ({
     tooltip: {
       backgroundColor: theme.palette.common.white,
@@ -47,6 +46,7 @@ export default function PockerBoard() {
     },
   }))(Tooltip);
   const [openSnack, setOpenSnack] = useState<boolean>(false);
+  const [showLoader, setShowLoader] = useState<boolean>(false);
 
   const handleSelect = (item: Item) => {
     const indexItem = selectVotes.findIndex((i) => i.value === item.value);
@@ -83,6 +83,7 @@ export default function PockerBoard() {
     let timeoutId!: any;
 
     socket.on("showBy", (userName) => {
+      setShowLoader(false);
       console.log(userName);
       setShowBy(userName);
       if (timeoutId) {
@@ -104,12 +105,14 @@ export default function PockerBoard() {
     socket.on("value", () => {
       setValue(0);
       unselectSelections();
+      setShowLoader(false);
     });
   };
 
   const listenShow = () => {
     socket.on("show", (show: boolean) => {
       setShow(show);
+      setShowLoader(false);
     });
   };
 
@@ -120,23 +123,28 @@ export default function PockerBoard() {
     }
     socket.on("roomHistory", (votes) => {
       setVotes(votes);
+      setShowLoader(false);
     });
   };
 
   const registerFirsVote = () => {
+    setShowLoader(true);
     const newVote: Vote = {
       user,
       value: 0,
     };
     socket.emit("newVote", newVote, roomParam);
+    setShowLoader(true);
   };
 
   const sendNewVote = () => {
+    setShowLoader(true);
     const newVote: Vote = {
       user,
       value: value,
     };
     socket.emit("newVote", newVote, roomParam);
+    setShowLoader(true);
   };
 
   const leaveRoom = () => {
@@ -156,12 +164,14 @@ export default function PockerBoard() {
 
   const showVotes = () => {
     socket.emit("setShow", roomParam, !show, user);
+    setShowLoader(true);
   };
 
   const resetVotes = () => {
     socket.emit("resetValue", roomParam);
     socket.emit("resetVotes", roomParam);
     socket.emit("setShow", roomParam, false);
+    setShowLoader(true);
   };
 
   const unselectSelections = () => {
@@ -183,6 +193,13 @@ export default function PockerBoard() {
 
   return (
     <div className="fade-in">
+      <div className="fixed top-3 right-12">
+        {showLoader && (
+          <Box sx={{ display: "flex", color: "black" }}>
+            <CircularProgress color="inherit" size={20} />
+          </Box>
+        )}
+      </div>
       <div className="flex justify-between p-2 pr-3">
         <div className="select-none cursor-none">planingPocker</div>
         <div onClick={leaveRoom}>
@@ -257,7 +274,7 @@ export default function PockerBoard() {
         onClose={handleClose}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
-        <div className="-mr-3  mt-7 md:mt-4 bg-transparent text-gray-500 transition  italic px-4 font-thin text-sm">
+        <div className="mr-[20px] md:mr-[10px]  mt-[2px] md:mt-[-14px] bg-transparent text-gray-500 transition  italic px-4 font-thin text-sm">
           {showBy !== "" && ` ${showBy} ->`}{" "}
           <VisibilityOutlinedIcon className="text-gray-400" />
         </div>
