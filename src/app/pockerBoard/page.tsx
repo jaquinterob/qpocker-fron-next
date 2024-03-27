@@ -276,7 +276,9 @@ export default function PockerBoard() {
       >
         <div className="mr-[20px] md:mr-[10px]  mt-[2px] md:mt-[-14px] bg-transparent text-gray-500 transition  italic px-4 font-thin text-sm">
           {showBy !== "" && ` ${showBy} ->`}{" "}
-          <VisibilityOutlinedIcon className="text-gray-400" />
+          {showBy !== "" && (
+            <VisibilityOutlinedIcon className="text-gray-400" />
+          )}
         </div>
       </Snackbar>
     </div>
