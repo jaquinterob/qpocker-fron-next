@@ -75,7 +75,7 @@ export default function Home() {
       )}
       <div
         onDoubleClick={redirectToHistoryRooms}
-        className="absolute bottom-0 p-2 text-transparent hover:text-black transition cursor-none"
+        className="absolute bottom-0 p-2 text-transparent hover:text-black dark:hover:text-slate-300 transition cursor-none"
       >
         <ChangeHistoryIcon />
       </div>
