@@ -15,7 +15,7 @@ const Page = () => {
   return (
     <div className="flex flex-wrap gap-2 p-4 justify-center">
       {rooms.map((room) => (
-        <div className="border-2 border-black p-3 rounded">
+        <div className="border-2 border-black dark:border-slate-300  dark:text-slate-300 p-3 rounded">
           <pre>{JSON.stringify(room, null, 2)}</pre>
         </div>
       ))}
