@@ -6,7 +6,11 @@ import { useEffect, useState } from "react";
 
 const ThemeToggle = () => {
   const [darkMode, setDarkMode] = useState<boolean>(() => {
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    try {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    } catch (error) {
+      return false;
+    }
   });
 
   useEffect(() => {
