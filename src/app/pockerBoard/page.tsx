@@ -196,36 +196,36 @@ export default function PockerBoard() {
       <div className="fixed top-3 right-12">
         {showLoader && (
           <Box sx={{ display: "flex", color: "black" }}>
-            <CircularProgress color="inherit" size={20} />
+            <CircularProgress color="inherit" size={20} className="dark:text-slate-300" />
           </Box>
         )}
       </div>
-      <div className="flex justify-between p-2 pr-3">
-        <div className="select-none cursor-none">planingPocker</div>
+      <div className="flex justify-between p-2 pr-3 ">
+        <div className="select-none cursor-none dark:text-slate-300 dark:hover:text-white">qpocker</div>
         <div onClick={leaveRoom}>
           <LightTooltip title="Salir de la sala" placement="left">
-            <ExitToAppIcon className="cursor-pointer" />
+            <ExitToAppIcon className="cursor-pointer  dark:text-slate-300 dark:hover:text-white " />
           </LightTooltip>
         </div>
       </div>
-      <div className="text-center py-4 font-bold text-4xl">
+      <div className="text-center py-4 font-bold text-4xl dark:text-slate-300">
         {user}
         <span onClick={changeUserName}>
           <LightTooltip title="cambiar nombre" placement="right">
             <CachedIcon
               fontSize="large"
-              className="cursor-pointer pl-2 text-gray-400 hover:text-black "
+              className="cursor-pointer pl-2 text-gray-400 hover:text-black  dark:text-gray-500 dark:hover:text-white "
             />
           </LightTooltip>
         </span>
       </div>
       <div className="flex gap-2 flex-col pt-5 m-auto w-[90%] md:w-[60%] lg:w-[40%] text-lg font-bold ">
         <div className="relative">
-          <div className=" absolute  -right-[1px] -top-[24px] text-right w-fit font-normal text-sm text-gray-400 hover:text-black hover:underline cursor-pointer transition ">
+          <div className=" absolute  -right-[1px] -top-[24px] text-right w-fit font-normal text-sm  text-gray-400 hover:text-black hover:underline cursor-pointer transition ">
             {show ? (
               <div
                 onClick={showVotes}
-                className="text-right w-full font-normal text-sm text-gray-400 hover:text-black hover:underline cursor-pointer transition"
+                className="text-right w-full font-normal text-sm text-gray-400  dark:text-gray-500 dark:hover:text-white   hover:text-black hover:underline cursor-pointer transition"
               >
                 Ocultar
                 <VisibilityOffIcon className="ml-1" />
@@ -233,7 +233,7 @@ export default function PockerBoard() {
             ) : (
               <div
                 onClick={showVotes}
-                className="text-right w-full font-normal text-sm text-gray-400 hover:text-black hover:underline cursor-pointer transition"
+                className="text-right w-full font-normal text-sm text-gray-400 dark:text-gray-500  hover:text-black dark:hover:text-white hover:underline cursor-pointer transition"
               >
                 Mostrar
                 <VisibilityIcon className="ml-1" />
@@ -251,12 +251,12 @@ export default function PockerBoard() {
 
         <div
           onClick={resetVotes}
-          className="text-right w-full font-normal text-sm text-gray-400 hover:text-black hover:underline cursor-pointer transition"
+          className="  dark:text-gray-500 dark:hover:text-white text-right w-full font-normal text-sm text-gray-400 hover:text-black hover:underline cursor-pointer transition"
         >
           Borrar Votos <DeleteSweepIcon />
         </div>
       </div>
-      <div className="flex gap-2 justify-center py-10 flex-wrap  w-[90%] md:w-[60%] lg:w-[40%] m-auto">
+      <div className="flex gap-2 justify-center py-10 flex-wrap  w-[90%]  m-auto">
         {selectVotes.map((item, i) => (
           <VoteSelect
             key={i}
@@ -274,7 +274,7 @@ export default function PockerBoard() {
         onClose={handleClose}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
-        <div className="mr-[20px] md:mr-[10px]  mt-[2px] md:mt-[-14px] bg-transparent text-gray-500 transition  italic px-4 font-thin text-sm">
+        <div className="mr-[20px] md:mr-[10px]  mt-[2px] md:mt-[-14px] bg-transparent dark:text-slate-300 text-gray-500 transition  italic px-4 font-thin text-sm">
           {showBy !== "" && ` ${showBy} ->`}{" "}
           {showBy !== "" && (
             <VisibilityOutlinedIcon className="text-gray-400" />

@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 body {
-  background: #e5e5e5;
   margin: 0;
   padding: 0;
 }
@@ -22,9 +21,9 @@ body {
 }
 
 .white-button {
-  @apply bg-transparent transition hover:bg-black hover:text-white text-black font-bold py-3 px-4 border-2 border-black rounded cursor-pointer select-none;
+  @apply bg-transparent  transition hover:bg-black dark:border-slate-300 dark:hover:bg-slate-50 dark:hover:text-slate-800 hover:text-white text-black dark:text-slate-300 font-bold py-3 px-4 border-2 border-black dark:hover:border-white rounded cursor-pointer select-none;
 }
 
 .white-input {
-  @apply bg-transparent border-2 border-black rounded px-4 py-4 text-lg focus:outline-none focus:border-black font-bold text-black;
+  @apply dark:text-slate-300 bg-transparent border-2 border-black dark:border-slate-300 dark:hover:bg-transparent rounded px-4 py-4 text-lg focus:outline-none focus:border-black dark:focus:border-slate-300 font-bold text-black;
 }
