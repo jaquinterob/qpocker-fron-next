@@ -33,7 +33,7 @@ const VoteCard = ({ vote, show = true }: Props) => {
     <div
       className={` ${
         vote.value !== 0 ? "bg-white dark:bg-slate-700" : ""
-      } border-2 border-black dark:border-slate-300 flex justify-between rounded px-4  py-2 fade-in`}
+      } border-2 border-black dark:border-slate-300 flex justify-between rounded px-4  py-1 fade-in`}
     >
       <div className="dark:text-slate-300">{vote.user}</div>
       <div className=" fade-in dark:text-slate-300">

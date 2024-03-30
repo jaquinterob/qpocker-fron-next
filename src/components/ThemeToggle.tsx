@@ -5,12 +5,14 @@ import ModeNightIcon from "@mui/icons-material/ModeNight";
 import { useEffect, useState } from "react";
 
 const ThemeToggle = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
 
   useEffect(() => {
     let theme;
-    if (localStorage) {
-      theme = localStorage.getItem("theme");
+    if (sessionStorage) {
+      theme = sessionStorage.getItem("theme");
     }
     if (theme === "dark") setDarkMode(true);
   }, []);
@@ -22,10 +24,10 @@ const ThemeToggle = () => {
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
+      sessionStorage.setItem("theme", "dark");
     } else {
       document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "ligth");
+      sessionStorage.setItem("theme", "ligth");
     }
   }, [darkMode]);
   return (
