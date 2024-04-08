@@ -5,8 +5,6 @@ pipeline {
     PORT = '3101' 
     IMAGE_NAME = 'qpocker_image-front' 
     APP_NAME = 'QPOCKER_APP_FRONT'
-    NEXT_PUBLIC_PROTOCOL = 'https'
-    NEXT_PUBLIC_HOST_SOCKET = '//socket.jaquinterob.com/'
   }
   
   stages {
@@ -43,7 +41,7 @@ pipeline {
     
     stage('Install Dependencies') {
       steps {
-        sh "docker run -dp $PORT:3000 --name $APP_NAME $IMAGE_NAME -e NEXT_PUBLIC_PROTOCOL=$NEXT_PUBLIC_PROTOCOL -e NEXT_PUBLIC_HOST_SOCKET=$NEXT_PUBLIC_HOST_SOCKET"
+        sh "docker run -dp $PORT:3000 --name $APP_NAME $IMAGE_NAME"
       }
     }
   }
