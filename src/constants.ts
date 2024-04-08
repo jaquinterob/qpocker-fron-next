@@ -3,7 +3,7 @@ export namespace APP {
 }
 
 export namespace URLS {
-  export const SOCKET = `${process.env.NEXT_PUBLIC_PROTOCOL}:${process.env.NEXT_PUBLIC_HOST_SOCKET}`;
+  export const SOCKET = `${process.env.NEXT_PUBLIC_SOCKET_URL}`;
 }
 
 export namespace ROUTES {
