@@ -14,7 +14,7 @@ import { copy } from "@/utilities/copy.utility";
 
 export default function Home() {
   const [room, setRoom] = useState<string>("");
-  const URL = URLS.SERVER + "pockerBoard?room=";
+  const URL = "/pockerBoard?room=";
   const router = useRouter();
   const [copied, setCopied] = useState(false);
   const roomService = new RoomService();

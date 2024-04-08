@@ -41,7 +41,7 @@ pipeline {
     
     stage('Install Dependencies') {
       steps {
-        sh "docker run -dp $PORT:3000 --name $APP_NAME $IMAGE_NAME"
+        sh "docker run -dp $PORT:3000 --name $APP_NAME $IMAGE_NAME -e NEXT_PUBLIC_PROTOCOL=https -e NEXT_PUBLIC_HOST_SOCKET=//socket.jaquinterob.com/"
       }
     }
   }

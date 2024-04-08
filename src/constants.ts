@@ -3,8 +3,7 @@ export namespace APP {
 }
 
 export namespace URLS {
-  export const SOCKET = "https://socket.jaquinterob.com/";
-  export const SERVER = "https://qpocker.jaquinterob.com/";
+  export const SOCKET = `${process.env.NEXT_PUBLIC_PROTOCOL}:${process.env.NEXT_PUBLIC_HOST_SOCKET}`;
 }
 
 export namespace ROUTES {

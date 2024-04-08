@@ -118,7 +118,7 @@ export default function PockerBoard() {
 
   const initValidation = () => {
     if (user === "") {
-      router.push(URLS.SERVER + "selectUser?room=" + roomParam);
+      router.push( "/selectUser?room=" + roomParam);
       return;
     }
     socket.on("roomHistory", (votes) => {
@@ -149,12 +149,12 @@ export default function PockerBoard() {
 
   const leaveRoom = () => {
     logOut();
-    router.push(URLS.SERVER);
+    router.push("/");
   };
 
   const changeUserName = () => {
     logOut();
-    router.push(URLS.SERVER + "selectUser?room=" + roomParam);
+    router.push("/selectUser?room=" + roomParam);
   };
 
   const logOut = () => {

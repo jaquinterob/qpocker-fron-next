@@ -6,7 +6,7 @@ import { APP, URLS } from "../../constants";
 import DoneOutlineIcon from "@material-ui/icons/DoneOutline";
 
 const Page = () => {
-  const URL = URLS.SERVER + "pockerBoard?room=";
+  const URL = "/pockerBoard?room=";
   const [user, setUser] = useState<string>("");
   const searchParams = useSearchParams();
   const [showError, setShowError] = useState<boolean>(false);
