@@ -4,8 +4,8 @@ pipeline {
   environment {
     PORT = '3101' 
     IMAGE_NAME = 'qpocker_image-front' 
-    APP_NAME = 'QPOCKER_APP_FRONT' ,
-    NEXT_PUBLIC_PROTOCOL = 'https',
+    APP_NAME = 'QPOCKER_APP_FRONT'
+    NEXT_PUBLIC_PROTOCOL = 'https'
     NEXT_PUBLIC_HOST_SOCKET = '//socket.jaquinterob.com/'
   }
   
