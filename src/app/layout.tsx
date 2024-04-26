@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -43,15 +44,27 @@ export default function RootLayout({
       <div className="fixed top-10 right-3">
         <ThemeToggle />
       </div>
-      <div className="select-none -z-10 md:z-10 cursor-none transition fixed bottom-0 right-0 text-right flex flex-col justify-end text-transparent hover:text-gray-800 dark:hover:text-gray-600 fade-in  hidden md:block ">
+      <div className="select-none -z-10 md:z-10 cursor-none transition fixed bottom-0 right-0 text-right  flex flex-col justify-end text-transparent hover:text-gray-800 dark:hover:text-gray-600 fade-in  hidden md:block ">
         <div className=" -mb-3 text-center text-sm">
           Powered by <strong>JohnQ</strong>
         </div>
-        <img
-          className="h-[10vh] dark:filter dark:contrast-0"
-          src="/images/celerix.png"
-          alt="celerix image"
-        />
+        <div className="logos-container ">
+          <img
+            className="h-[70px] dark:filter dark:contrast-0 "
+            src="/images/celerix.png"
+            alt="celerix image"
+          />
+          <img
+            className=" dark:filter dark:contrast-0 h-[20px]"
+            src="/images/galgo.png"
+            alt="galgo image"
+          />
+          <img
+            className=" dark:filter dark:contrast-0 h-[57px] -mt-[8px]"
+            src="/images/perficient.png"
+            alt="perficient image"
+          />
+        </div>
       </div>
     </html>
   );
