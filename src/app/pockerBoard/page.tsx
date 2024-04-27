@@ -19,6 +19,7 @@ import VoteSelect from "@/components/VoteSelect";
 import { Item } from "../../../interfaces/item";
 import { posiblesVotes } from "@/data/selectVotes";
 import { Snackbar } from "@mui/material";
+import ReactConfetti from "react-confetti";
 
 export default function PockerBoard() {
   const initialSelectVotes: Item[] = posiblesVotes;
@@ -47,6 +48,7 @@ export default function PockerBoard() {
   }))(Tooltip);
   const [openSnack, setOpenSnack] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(false);
+  const [confetti, setConfetti] = useState<boolean>(false);
 
   const handleSelect = (item: Item) => {
     const indexItem = selectVotes.findIndex((i) => i.value === item.value);
@@ -111,6 +113,7 @@ export default function PockerBoard() {
 
   const listenShow = () => {
     socket.on("show", (show: boolean) => {
+      if (show) showConfetti();
       setShow(show);
       setShowLoader(false);
     });
@@ -118,7 +121,7 @@ export default function PockerBoard() {
 
   const initValidation = () => {
     if (user === "") {
-      router.push( "/selectUser?room=" + roomParam);
+      router.push("/selectUser?room=" + roomParam);
       return;
     }
     socket.on("roomHistory", (votes) => {
@@ -191,17 +194,30 @@ export default function PockerBoard() {
     setOpenSnack(false);
   };
 
+  const showConfetti = () => {
+    setConfetti(true);
+    setTimeout(() => {
+      setConfetti(false);
+    }, 5000);
+  };
+
   return (
     <div className="fade-in">
       <div className="fixed top-3 right-12">
         {showLoader && (
           <Box sx={{ display: "flex", color: "black" }}>
-            <CircularProgress color="inherit" size={20} className="dark:text-slate-300" />
+            <CircularProgress
+              color="inherit"
+              size={20}
+              className="dark:text-slate-300"
+            />
           </Box>
         )}
       </div>
       <div className="flex justify-between p-2 pr-3 ">
-        <div className="select-none cursor-none dark:text-slate-300 dark:hover:text-white">qpocker</div>
+        <div className="select-none cursor-none dark:text-slate-300 dark:hover:text-white">
+          qpocker
+        </div>
         <div onClick={leaveRoom}>
           <LightTooltip title="Salir de la sala" placement="left">
             <ExitToAppIcon className="cursor-pointer  dark:text-slate-300 dark:hover:text-white " />
@@ -218,6 +234,18 @@ export default function PockerBoard() {
             />
           </LightTooltip>
         </span>
+      </div>
+      <div className="flex gap-2 justify-center py-7 flex-wrap  w-[90%]  m-auto">
+        {selectVotes.map((item, i) => (
+          <VoteSelect
+            key={i}
+            setValue={setValue}
+            item={item}
+            setSelectVotes={setSelectVotes}
+            selectVotes={selectVotes}
+            handleSelect={handleSelect}
+          />
+        ))}
       </div>
       <div className="flex gap-2 flex-col pt-5 m-auto w-[90%] md:w-[60%] lg:w-[40%] text-lg font-bold ">
         <div className="relative">
@@ -256,18 +284,7 @@ export default function PockerBoard() {
           Borrar Votos <DeleteSweepIcon />
         </div>
       </div>
-      <div className="flex gap-2 justify-center py-10 flex-wrap  w-[90%]  m-auto">
-        {selectVotes.map((item, i) => (
-          <VoteSelect
-            key={i}
-            setValue={setValue}
-            item={item}
-            setSelectVotes={setSelectVotes}
-            selectVotes={selectVotes}
-            handleSelect={handleSelect}
-          />
-        ))}
-      </div>
+
       <Snackbar
         open={openSnack}
         autoHideDuration={10000}
@@ -281,6 +298,15 @@ export default function PockerBoard() {
           )}
         </div>
       </Snackbar>
+      {confetti && (
+        <ReactConfetti
+          initialVelocityY={{ min: 1, max: 3 }}
+          numberOfPieces={100}
+          recycle={false}
+          gravity={0.2}
+          style={{ width: "100%", height: "100vh" }}
+        />
+      )}
     </div>
   );
 }
