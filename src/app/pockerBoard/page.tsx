@@ -20,8 +20,10 @@ import { Item } from "../../../interfaces/item";
 import { posiblesVotes } from "@/data/selectVotes";
 import { Snackbar } from "@mui/material";
 import ReactConfetti from "react-confetti";
+import { POKERBOARD_GREETING } from "@/utilities/greeting.utility";
 
 export default function PockerBoard() {
+  POKERBOARD_GREETING();
   const initialSelectVotes: Item[] = posiblesVotes;
   const [selectVotes, setSelectVotes] = useState<Item[]>(initialSelectVotes);
   const searchParams = useSearchParams();

@@ -10,6 +10,7 @@ import { generateHash } from "../../utilities/hash.utility";
 import { useRouter } from "next/navigation";
 import { RoomService } from "@/services/room.service";
 import { copy } from "@/utilities/copy.utility";
+import { HOME_GREETING } from "@/utilities/greeting.utility";
 
 export default function Home() {
   const [room, setRoom] = useState<string>("");
@@ -17,18 +18,7 @@ export default function Home() {
   const router = useRouter();
   const [copied, setCopied] = useState(false);
   const roomService = new RoomService();
-  console.log(
-    "%cQPOCKER",
-    "color: #00ff50;    background: #32815e; padding: 2px 8px;    border-radius: 4px;    font-size: 20px;    "
-  );
-  console.log(
-    "%cSonar quality pass",
-    "color: #00ff50;    background: #32815e; padding: 2px 8px;    border-radius: 4px;    font-size: 10px;    "
-  );
-  console.log(
-    "%cBy JohnQ.",
-    "color: #00ff50;    background: #32815e; padding: 2px 8px;    border-radius: 4px;    font-size: 10px;    "
-  );
+  HOME_GREETING();
 
   const copyToClipboard = () => {
     copy(URL, room).then(() => {
