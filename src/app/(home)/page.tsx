@@ -58,7 +58,6 @@ export default function Home() {
 
   return (
     <div className="flex flex-col pt-10 fade-in">
-      <div>🥇 JohnQ --- Certified 🥇</div>
       <div className="flex justify-center gap-2 ">
         <div onClick={newRoom} className="white-button">
           <AddBoxIcon className="mr-2 -mt-1" />
