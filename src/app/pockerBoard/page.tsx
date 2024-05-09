@@ -86,7 +86,6 @@ export default function PockerBoard() {
 
     socket.on("showBy", (userName) => {
       setShowLoader(false);
-      console.log(userName);
       setShowBy(userName);
       if (timeoutId) {
         clearTimeout(timeoutId);

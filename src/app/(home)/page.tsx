@@ -8,7 +8,6 @@ import ChangeHistoryIcon from "@material-ui/icons/ChangeHistory";
 import React, { useState } from "react";
 import { generateHash } from "../../utilities/hash.utility";
 import { useRouter } from "next/navigation";
-import { URLS } from "../../constants";
 import { RoomService } from "@/services/room.service";
 import { copy } from "@/utilities/copy.utility";
 
@@ -18,6 +17,18 @@ export default function Home() {
   const router = useRouter();
   const [copied, setCopied] = useState(false);
   const roomService = new RoomService();
+  console.log(
+    "%cQPOCKER",
+    "color: #00ff50;    background: #32815e; padding: 2px 8px;    border-radius: 4px;    font-size: 20px;    "
+  );
+  console.log(
+    "%cSonar quality pass",
+    "color: #00ff50;    background: #32815e; padding: 2px 8px;    border-radius: 4px;    font-size: 10px;    "
+  );
+  console.log(
+    "%cBy JohnQ.",
+    "color: #00ff50;    background: #32815e; padding: 2px 8px;    border-radius: 4px;    font-size: 10px;    "
+  );
 
   const copyToClipboard = () => {
     copy(URL, room).then(() => {
@@ -31,9 +42,7 @@ export default function Home() {
     setRoom(hash);
     roomService
       .saveNewRoom(hash)
-      .then((data) => {
-        console.log("Respuesta del servidor:", data);
-      })
+      .then((data) => {})
       .catch((error) => {
         console.error("Error:", error);
       });
@@ -49,6 +58,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col pt-10 fade-in">
+      <div>🥇 JohnQ --- Certified 🥇</div>
       <div className="flex justify-center gap-2 ">
         <div onClick={newRoom} className="white-button">
           <AddBoxIcon className="mr-2 -mt-1" />
@@ -57,7 +67,9 @@ export default function Home() {
       </div>
       {room !== "" && (
         <div className="flex flex-col items-center pt-6 fade-in">
-          <h1 className="text-black italic font-semibold  dark:text-slate-300">Nueva sala:</h1>
+          <h1 className="text-black italic font-semibold  dark:text-slate-300">
+            Nueva sala:
+          </h1>
           <div className="room flex gap-2 pt-3 flex-col md:flex-row px-4  md:py-4 dark:text-slate-300 ">
             <div className="w-[200px]  md:w-[500px] border-2 border-black dark:border-slate-300 rounded-md pt-3 px-3 text-lg font-bold overflow-hidden whitespace-nowrap text-ellipsis">
               {`${URL}${room}`}
