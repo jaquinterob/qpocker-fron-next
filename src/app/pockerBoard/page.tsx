@@ -21,6 +21,9 @@ import { posiblesVotes } from "@/data/selectVotes";
 import { Snackbar } from "@mui/material";
 import ReactConfetti from "react-confetti";
 import { POKERBOARD_GREETING } from "@/utilities/greeting.utility";
+import { ToastContainer, toast, ToastTransition } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Slide } from "react-toastify";
 
 export default function PockerBoard() {
   POKERBOARD_GREETING();
@@ -82,6 +85,21 @@ export default function PockerBoard() {
       socket.off("votes");
     };
   }, []);
+
+  const initalToastTest = () => {
+    toast("JohnQ ingresó", {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Slide,
+      className: "toast",
+    });
+  };
 
   const listenShowBy = () => {
     let timeoutId!: any;
@@ -308,6 +326,7 @@ export default function PockerBoard() {
           style={{ width: "100%", height: "100vh" }}
         />
       )}
+      <ToastContainer />
     </div>
   );
 }
