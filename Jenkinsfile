@@ -3,8 +3,8 @@ pipeline {
   
   environment {
     PORT = '3101' 
-    IMAGE_NAME = 'qpocker_image-front' 
-    APP_NAME = 'QPOCKER_APP_FRONT'
+    IMAGE_NAME = 'qpoker_image-front' 
+    APP_NAME = 'QPOKER_APP_FRONT'
   }
   
   stages {

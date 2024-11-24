@@ -235,7 +235,7 @@ export default function PockerBoard() {
       </div>
       <div className="flex justify-between p-2 pr-3 ">
         <div className="select-none cursor-none dark:text-slate-300 dark:hover:text-white">
-          qpocker
+          qpoker
         </div>
         <div onClick={leaveRoom}>
           <LightTooltip title="Salir de la sala" placement="left">
