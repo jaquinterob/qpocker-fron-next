@@ -315,10 +315,10 @@ export default function PockerBoard() {
           Borrar Votos <DeleteSweepIcon />
         </div>
         {showIAMessage && (
-          <div className="fixed bottom-4 left-0 right-0 text-center">
-            <div className="inline-block px-6 py-3 rounded-lg bg-white/30 dark:bg-gray-800/30 shadow-lg max-w-[80%] transition-all duration-300 hover:bg-white hover:dark:bg-gray-800 relative">
+          <div className="fixed bottom-4 left-0 right-0 text-center animate-[fadeIn_1s_ease-in-out]">
+            <div className="inline-block px-6 py-3 rounded-lg bg-white/30 dark:bg-gray-800/30 shadow-lg max-w-[80%] transition-all duration-700 hover:bg-white hover:dark:bg-gray-800 relative animate-[slideUp_1s_ease-in-out]">
               <div className="flex justify-between items-start">
-                <span className="text-gray-700/70 dark:text-gray-200/70 text-xl font-medium whitespace-pre-line hover:text-gray-700 hover:dark:text-gray-200 transition-all duration-300">
+                <span className="text-gray-700/70 dark:text-gray-200/70 text-xl font-medium whitespace-pre-line hover:text-gray-700 hover:dark:text-gray-200 transition-all duration-700">
                   {iaMessage ? (
                     <TypewriterEffect 
                       key={iaMessage}
@@ -326,15 +326,19 @@ export default function PockerBoard() {
                     />
                   ) : (
                     <span className="flex items-center gap-2">
-                      <span className="animate-pulse text-xl">
+                      <span className="animate-pulse text-xl" style={{animationDuration: '2s'}}>
                         ✨ Analizando votación...
                       </span>
                     </span>
                   )}
                 </span>
                 <button
-                  onClick={() => setShowIAMessage(false)}
-                  className="ml-2 mr-0 px-2 rounded-lg bg-gray-400/50 dark:bg-gray-600/50 text-gray-700 dark:text-gray-200 hover:bg-gray-400 hover:dark:bg-gray-600 flex items-center justify-center text-xl"
+                  onClick={() => {
+                    const element = document.querySelector('.fixed');
+                    element?.classList.add('animate-[fadeOut_1s_ease-in-out]');
+                    setTimeout(() => setShowIAMessage(false), 1000);
+                  }}
+                  className="ml-2 mr-0 px-2 rounded-lg bg-gray-400/50 dark:bg-gray-600/50 text-gray-700 dark:text-gray-200 hover:bg-gray-400 hover:dark:bg-gray-600 flex items-center justify-center text-xl transition-all duration-700"
                 >
                   ×
                 </button>
