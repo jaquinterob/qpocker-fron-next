@@ -11,7 +11,7 @@ const author: Author = {
 };
 
 export const metadata: Metadata = {
-  title: "Planing Pocker",
+  title: "Planing Poker",
   description:
     "qpocker es tu herramienta de planificación de póquer ágil para Scrum. Organiza y estima tus historias de usuario con eficiencia, juega con tu equipo y gestiona tus sesiones de planificación de manera efectiva. ¡Regístrate ahora y lleva tus reuniones de planificación de Scrum al siguiente nivel!",
   keywords: [
