@@ -24,6 +24,7 @@ import { POKERBOARD_GREETING } from "@/utilities/greeting.utility";
 import { ToastContainer, toast, ToastTransition } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Slide } from "react-toastify";
+import TypewriterEffect from "@/components/TypewriterEffect";
 
 export default function PockerBoard() {
   POKERBOARD_GREETING();
@@ -35,6 +36,7 @@ export default function PockerBoard() {
   const [value, setValue] = useState<number>(0);
   const [show, setShow] = useState<boolean>(false);
   const [showBy, setShowBy] = useState<string>("");
+  const [showIAMessage, setShowIAMessage] = useState<boolean>(false);
   const socket = io(URLS.SOCKET, {
     query: { room: roomParam },
   });
@@ -54,6 +56,7 @@ export default function PockerBoard() {
   const [openSnack, setOpenSnack] = useState<boolean>(false);
   const [showLoader, setShowLoader] = useState<boolean>(false);
   const [confetti, setConfetti] = useState<boolean>(false);
+  const [iaMessage, setIamessage] = useState<string>("");
 
   const handleSelect = (item: Item) => {
     const indexItem = selectVotes.findIndex((i) => i.value === item.value);
@@ -80,6 +83,7 @@ export default function PockerBoard() {
     listenShow();
     listenValue();
     listenShowBy();
+    listenIaMessage();
     return () => {
       socket.emit("logOut", user, roomParam);
       socket.off("votes");
@@ -134,7 +138,14 @@ export default function PockerBoard() {
     socket.on("show", (show: boolean) => {
       if (show) showConfetti();
       setShow(show);
+      setShowIAMessage(show);
       setShowLoader(false);
+    });
+  };
+
+  const listenIaMessage = () => {
+    socket.on("iaMessage", (iaMessage: string) => {
+      setIamessage(iaMessage);
     });
   };
 
@@ -215,6 +226,7 @@ export default function PockerBoard() {
 
   const showConfetti = () => {
     setConfetti(true);
+    setShowIAMessage(true);
     setTimeout(() => {
       setConfetti(false);
     }, 5000);
@@ -302,6 +314,34 @@ export default function PockerBoard() {
         >
           Borrar Votos <DeleteSweepIcon />
         </div>
+        {showIAMessage && (
+          <div className="fixed bottom-4 left-0 right-0 text-center">
+            <div className="inline-block px-6 py-3 rounded-lg bg-white/30 dark:bg-gray-800/30 shadow-lg max-w-[80%] transition-all duration-300 hover:bg-white hover:dark:bg-gray-800 relative">
+              <div className="flex justify-between items-start">
+                <span className="text-gray-700/70 dark:text-gray-200/70 text-xl font-medium whitespace-pre-line hover:text-gray-700 hover:dark:text-gray-200 transition-all duration-300">
+                  {iaMessage ? (
+                    <TypewriterEffect 
+                      key={iaMessage}
+                      text={iaMessage} 
+                    />
+                  ) : (
+                    <span className="flex items-center gap-2">
+                      <span className="animate-pulse text-xl">
+                        ✨ Analizando votación...
+                      </span>
+                    </span>
+                  )}
+                </span>
+                <button
+                  onClick={() => setShowIAMessage(false)}
+                  className="ml-2 mr-0 px-2 rounded-lg bg-gray-400/50 dark:bg-gray-600/50 text-gray-700 dark:text-gray-200 hover:bg-gray-400 hover:dark:bg-gray-600 flex items-center justify-center text-xl"
+                >
+                  ×
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       <Snackbar
