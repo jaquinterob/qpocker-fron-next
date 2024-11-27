@@ -11,21 +11,25 @@ const author: Author = {
 };
 
 export const metadata: Metadata = {
-  title: "Planning Poker",
+  title: "IA Planning Poker",
   description:
-    "qpocker es tu herramienta de planificación de póquer ágil para Scrum. Organiza y estima tus historias de usuario con eficiencia, juega con tu equipo y gestiona tus sesiones de planificación de manera efectiva. ¡Regístrate ahora y lleva tus reuniones de planificación de Scrum al siguiente nivel!",
+    "qpocker revoluciona el planning poker con inteligencia artificial avanzada. Nuestra IA analiza en tiempo real los resultados de las votaciones, identifica patrones, sugiere puntajes óptimos basados en el consenso del equipo y facilita las discusiones mediante preguntas inteligentes a los participantes. La IA actúa como un facilitador virtual que ayuda a alcanzar estimaciones más precisas y objetivas. Además, ofrece todas las funcionalidades tradicionales de una herramienta de planning poker para Scrum. ¡Potencia tus sesiones de estimación con el poder de la inteligencia artificial!",
   keywords: [
     "qpocker",
-    "poker planning",
-    "poker game planning",
-    "free poker planning tool",
-    "poker session planning",
-    "online poker planning",
-    "poker event planning",
-    "poker strategy planning",
-    "poker session organizer",
-    "poker game organizer",
-    "virtual poker planning tool",
+    "poker planning con IA",
+    "estimación ágil inteligente",
+    "análisis IA de votaciones",
+    "facilitador virtual scrum",
+    "IA para planning poker",
+    "estimación automatizada",
+    "sugerencias IA planning",
+    "scrum master virtual",
+    "análisis predictivo ágil",
+    "planning poker inteligente",
+    "asistente IA para scrum",
+    "votación ágil asistida",
+    "estimación con machine learning",
+    "facilitación ágil IA"
   ],
   authors: [author],
   applicationName: "qpocker",
