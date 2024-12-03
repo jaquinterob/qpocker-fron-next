@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import CircularProgress from "@mui/material/CircularProgress";
@@ -318,15 +319,19 @@ export default function PockerBoard() {
           <div className="fixed bottom-4 left-0 right-0 text-center animate-[fadeIn_1s_ease-in-out]">
             <div className="inline-block px-6 py-3 rounded-lg bg-white/30 dark:bg-gray-800/30 shadow-lg max-w-[80%] transition-all duration-700 hover:bg-white hover:dark:bg-gray-800 relative animate-[slideUp_1s_ease-in-out]">
               <div className="flex justify-between items-start">
-                <span className={`text-gray-700/70 dark:text-gray-200/70 ${window.innerWidth < 768 ? 'text-base' : 'text-xl'} font-medium whitespace-pre-line hover:text-gray-700 hover:dark:text-gray-200 transition-all duration-700`}>
+                <span
+                  className={`text-gray-700/70 dark:text-gray-200/70 ${
+                    window.innerWidth < 768 ? "text-base" : "text-xl"
+                  } font-medium whitespace-pre-line hover:text-gray-700 hover:dark:text-gray-200 transition-all duration-700`}
+                >
                   {iaMessage ? (
-                    <TypewriterEffect 
-                      key={iaMessage}
-                      text={iaMessage} 
-                    />
+                    <TypewriterEffect key={iaMessage} text={iaMessage} />
                   ) : (
                     <span className="flex items-center gap-2">
-                      <span className="animate-pulse text-xl" style={{animationDuration: '2s'}}>
+                      <span
+                        className="animate-pulse text-xl"
+                        style={{ animationDuration: "2s" }}
+                      >
                         ✨ Analizando votación...
                       </span>
                     </span>
@@ -334,8 +339,8 @@ export default function PockerBoard() {
                 </span>
                 <button
                   onClick={() => {
-                    const element = document.querySelector('.fixed');
-                    element?.classList.add('animate-[fadeOut_1s_ease-in-out]');
+                    const element = document.querySelector(".fixed");
+                    element?.classList.add("animate-[fadeOut_1s_ease-in-out]");
                     setTimeout(() => setShowIAMessage(false), 1000);
                   }}
                   className="ml-2 mr-0 px-2 rounded-lg bg-gray-400/50 dark:bg-gray-600/50 text-gray-700 dark:text-gray-200 hover:bg-gray-400 hover:dark:bg-gray-600 flex items-center justify-center text-xl transition-all duration-700"
@@ -371,6 +376,18 @@ export default function PockerBoard() {
         />
       )}
       <ToastContainer />
+      {new Date().getMonth() === 11 && (
+        <LightTooltip title={`🎄 ${user}, Feliz Navidad ❤️`} placement="top">
+          <div className="fixed bottom-0 left-0 m-4 hidden md:block cursor-none">
+            <img
+              src="https://images.vexels.com/media/users/3/341490/isolated/preview/25811322305e06cdd69facb1c0f7fdeb-a-rbol-de-navidad-sobre-un-fondo-verde.png"
+              alt="Arbol de Navidad"
+              className="w-24 h-24 opacity-80 hover:opacity-100 transition duration-300"
+              style={{ filter: "hue-rotate(120deg)" }}
+            />
+          </div>
+        </LightTooltip>
+      )}
     </div>
   );
 }
