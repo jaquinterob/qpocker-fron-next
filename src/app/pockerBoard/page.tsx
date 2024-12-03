@@ -318,7 +318,7 @@ export default function PockerBoard() {
           <div className="fixed bottom-4 left-0 right-0 text-center animate-[fadeIn_1s_ease-in-out]">
             <div className="inline-block px-6 py-3 rounded-lg bg-white/30 dark:bg-gray-800/30 shadow-lg max-w-[80%] transition-all duration-700 hover:bg-white hover:dark:bg-gray-800 relative animate-[slideUp_1s_ease-in-out]">
               <div className="flex justify-between items-start">
-                <span className="text-gray-700/70 dark:text-gray-200/70 text-xl font-medium whitespace-pre-line hover:text-gray-700 hover:dark:text-gray-200 transition-all duration-700">
+                <span className={`text-gray-700/70 dark:text-gray-200/70 ${window.innerWidth < 768 ? 'text-base' : 'text-xl'} font-medium whitespace-pre-line hover:text-gray-700 hover:dark:text-gray-200 transition-all duration-700`}>
                   {iaMessage ? (
                     <TypewriterEffect 
                       key={iaMessage}
