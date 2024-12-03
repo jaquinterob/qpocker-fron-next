@@ -377,7 +377,7 @@ export default function PockerBoard() {
       )}
       <ToastContainer />
       {new Date().getMonth() === 11 && (
-        <LightTooltip title={`🎄 ${user}, Feliz Navidad ❤️`} placement="top">
+        <LightTooltip title={`🎅 ${user}, ¡Feliz Navidad! 🎄❤️`} placement="top">
           <div className="fixed bottom-0 left-0 m-4 hidden md:block cursor-none">
             <img
               src="https://images.vexels.com/media/users/3/341490/isolated/preview/25811322305e06cdd69facb1c0f7fdeb-a-rbol-de-navidad-sobre-un-fondo-verde.png"
